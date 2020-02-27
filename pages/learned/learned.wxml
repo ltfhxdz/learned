@@ -1,0 +1,43 @@
+<import src="../templete/templete" />
+<swiper  class="view_swiper" autoplay="true" interval="10000" duration="600" circular="false" previous-margin="20px">
+  <swiper-item>
+    <image src="../../pages/images/kai.jpg" style="display: block;height: 100px;" />
+  </swiper-item>
+  <swiper-item>
+    <image src="../../pages/images/wen.jpg" style="display: block;height: 100px;" />
+  </swiper-item>
+  <swiper-item>
+    <image src="../../pages/images/xue.jpg" style="display: block;height: 100px;" />
+  </swiper-item>
+</swiper>
+
+<view class="view_parent">
+  <view class="view_son">
+    <view class="search">
+      <input type="text" bindinput="searchInput" value="{{inputValue}}" placeholder="请输入"  maxlength="60" ></input>
+      <view class="clean" wx:if="{{condition}}">
+        <image src='../images/x.png' bindtap='clean'></image>
+      </view>
+
+      <image src='../images/search.png' bindtap='query'></image>
+    </view>
+
+    <view class="line"></view>
+
+  </view>
+
+  <view class="item1">
+    <button bindtap="query" style="color:black;background-color:cyan">查询</button>
+  </view>
+</view>
+
+<view class="hr"></view>
+<view class="name2" wx:if="{{flagEnglish}}">多次出现：</view>
+<view>
+  <template is="words" data="{{array}}" />
+</view>
+
+<view class="item3">
+  <text class="item4">小学字词：人教版语文，上教版英语</text>
+  <image src='../images/mail.jpg' bindtap='mail'></image>
+</view>

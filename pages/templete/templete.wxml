@@ -1,0 +1,10 @@
+<template name="words">
+  <block wx:for="{{array}}"  wx:key="key" >
+    <view class="item">
+      <view class="desc">
+        <view>{{item.term}} </view>
+        <view class="name">{{item.name}}</view>
+      </view>
+    </view>
+  </block>
+</template>
