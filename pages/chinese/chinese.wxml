@@ -1,0 +1,57 @@
+<view class="item5">
+  <view class="item1">
+    <text bindtap="previous">上一课</text>
+  </view>
+  <view class="item1">
+    <text bindtap="select">选择课文</text>
+  </view>
+  <view class="item1">
+    <text bindtap="next">下一课</text>
+  </view>
+</view>
+
+
+<view class="mask" style="{{termShow?'z-index: 1;opacity:0.7':''}}">
+  <view class='modalBg' wx:if="{{termShow}}">
+    <view class="modalDlg">
+      <view class='title'>
+        <text>选择</text>
+      </view>
+
+      <view wx:for="{{termList}}" wx:key="key">
+        <view class="item">
+          <text class="item2" catchtap="term1Method" data-index="{{index}}">{{item.term1}}</text>
+          <text class="item2" catchtap="term2Method" data-index="{{index}}">{{item.term2}}</text>
+        </view>
+        <view class="line"></view>
+      </view>
+      <view>
+        <button catchtap="termCancel">取消</button>
+      </view>
+
+    </view>
+  </view>
+</view>
+
+<view class="mask" style="{{lessonShow?'z-index: 1;opacity:0.7':''}}">
+  <view class='modalBg' wx:if="{{lessonShow}}">
+    <view class="modalDlg">
+      <view class='title'>
+        <text>选择</text>
+      </view>
+
+      <view wx:for="{{lessonList}}" wx:key="key">
+        <view class="item">
+          <text class="item2" catchtap="lesson1Method" data-index="{{index}}">{{item.lesson1}}</text>
+          <text class="item2" catchtap="lesson2Method" data-index="{{index}}">{{item.lesson2}}</text>
+          <text class="item2" catchtap="lesson3Method" data-index="{{index}}">{{item.lesson3}}</text>
+        </view>
+        <view class="line"></view>
+      </view>
+      <view>
+        <button catchtap="lessonCancel">取消</button>
+      </view>
+
+    </view>
+  </view>
+</view>

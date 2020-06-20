@@ -1,5 +1,6 @@
 .view_swiper {
   height: 100px;
+  margin-top: 20rpx;
 }
 
 .view_parent {
@@ -61,8 +62,8 @@
 }
 
 .item1 {
-  color: black;
-  font-size: 40rpx;
+  font-size: 40rpx;  
+  color:black;
 }
 
 .item2 {

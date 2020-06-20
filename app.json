@@ -1,12 +1,39 @@
 {
   "pages": [
-    "pages/learned/learned"
+    "pages/chinese/chinese",
+    "pages/learned/learned",
+    "pages/english/english"
   ],
   "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#000000",
     "navigationBarTitleText": "查询字词是否学过",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#FFFFFF",
+    "selectedColor": "#FFA500",
+    "backgroundColor": "#000000",
+    "list": [
+      {
+        "pagePath": "pages/learned/learned",
+        "iconPath": "pages/images/meihua.jpg",
+        "selectedIconPath": "pages/images/meihua.jpg",
+        "text": "字词"
+      },
+      {
+        "pagePath": "pages/chinese/chinese",
+        "iconPath": "pages/images/lanhua.jpg",
+        "selectedIconPath": "pages/images/lanhua.jpg",
+        "text": "语文"
+      },
+      {
+        "pagePath": "pages/english/english",
+        "iconPath": "pages/images/hehua.jpg",
+        "selectedIconPath": "pages/images/hehua.jpg",
+        "text": "英语"
+      }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
