@@ -7,7 +7,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#000000",
-    "navigationBarTitleText": "查询字词是否学过",
+    "navigationBarTitleText": "学过",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {

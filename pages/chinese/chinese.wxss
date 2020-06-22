@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  margin-top: 5rpx;
 }
 
 .item1 {
@@ -23,6 +24,14 @@
   text-align: center;
   background-color: AliceBlue;
 }
+
+.item3 {
+  margin-top: 20rpx;
+  width: 98%;
+  min-height: 300rpx;
+  background:whitesmoke;
+}
+
 .item5 {
   margin-top: 100rpx;
   display: flex;
@@ -30,6 +39,10 @@
   justify-content: space-around;
 }
 
+.item6 {
+  margin-top: 50rpx;
+  margin-left: 30rpx;
+}
 .line {
   margin-top: 10rpx;
   height: 1px;
@@ -63,7 +76,7 @@
   width: 98%;
   min-height: 200rpx;
   z-index: 9999;
-  background-color: #fff;
+  background:whitesmoke;
   border-radius: 10rpx;
   position: relative;
   overflow: hidden;

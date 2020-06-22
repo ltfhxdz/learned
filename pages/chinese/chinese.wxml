@@ -55,3 +55,38 @@
     </view>
   </view>
 </view>
+
+<view class="item6" wx:if="{{wordShow}}">
+  <text decode="{{true}}">{{term}}&nbsp;&nbsp;{{lesson}}：{{name}}</text>
+</view>
+
+<view class='item3' wx:if="{{wordShow}}">
+  <view class='title'>
+    <text>词语表</text>
+  </view>
+
+  <view wx:for="{{wordList}}" wx:key="key">
+    <view class="item">
+      <text class="item2">{{item.word1}}</text>
+      <text class="item2">{{item.word2}}</text>
+      <text class="item2">{{item.word3}}</text>
+      <text class="item2">{{item.word4}}</text>
+    </view>
+  </view>
+</view>
+
+<view class='item3' wx:if="{{wordShow}}">
+  <view class='title'>
+    <text>写字表</text>
+  </view>
+
+  <view wx:for="{{writeList}}" wx:key="key">
+    <view class="item">
+      <text class="item2">{{item.write1}}</text>
+      <text class="item2">{{item.write2}}</text>
+      <text class="item2">{{item.write3}}</text>
+      <text class="item2">{{item.write4}}</text>
+      <text class="item2">{{item.write5}}</text>
+    </view>
+  </view>
+</view>
