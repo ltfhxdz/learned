@@ -57,10 +57,11 @@
 </view>
 
 <view class="item6" wx:if="{{wordShow}}">
-  <text decode="{{true}}">{{term}}&nbsp;&nbsp;{{lesson}}：{{name}}</text>
+  <text decode="{{true}}">{{term}}</text>
+  <text decode="{{true}}" class="item8">{{lesson}}：{{name}}</text>
 </view>
 
-<view class='item3' wx:if="{{wordShow}}">
+<view class='item7' wx:if="{{wordShow}}">
   <view class='title'>
     <text>词语表</text>
   </view>

@@ -51,8 +51,87 @@ Page({
     })
   },
 
-  previous: function(e) {
+  //数组去重
+  unique: function(array) {
+    var temp = []; 
+    for (var i = 0; i < array.length; i++) {
+      if (temp.indexOf(array[i]) == -1) {
+        temp.push(array[i]);
+      }
+    }
+    return temp;
+  },
 
+  previous: function(e) {
+    let term = wx.getStorageSync('term');
+    let lesson = wx.getStorageSync('lesson');
+    console.log(term);
+    console.log(lesson);
+
+    if (term == '' || lesson == ''){
+      return;
+    }
+
+    let json = oneWordJson.oneWordJson;
+    let termArray = [];
+    for (var k in json) {
+      termArray.push(json[k].term);
+    }
+
+    let typeArray = [];
+    for (var k in json) {
+      if (json[k].term == term) {
+        var wordList = json[k].wordList;
+        for (let x in wordList) {
+          typeArray.push(wordList[x].type);
+        }
+        break;
+      }
+    }
+    termArray = this.unique(termArray);
+    console.log(termArray);
+    console.log(typeArray);
+
+    let index = 0;
+    for (var k in typeArray) {
+      if (lesson == typeArray[k]){
+        index  = k;
+        break;
+      }
+    }
+
+    console.log(index);
+    if (index == 0){
+      //选择上一册
+    } else {
+      lesson = typeArray[index - 1];
+      wx.setStorageSync('lesson', lesson);
+      let name = '';
+      for (var k in json) {
+        if (json[k].term == term) {
+          var wordList = json[k].wordList;
+          for (let x in wordList) {
+            if (lesson == wordList[x].type ){
+              name = wordList[x].name;
+              console.log(name);
+              break;
+            }
+          }
+        }
+      }
+
+      console.log(term);
+      console.log(lesson);
+      console.log(name);
+
+      this.setData({
+        term: term,
+        lesson: lesson,
+        name: name,
+        wordList: this.getWordList(this.getResultArray()[0]),
+        writeList: this.getWriteList(this.getResultArray()[1])
+      })
+    }
   },
 
   next: function(e) {
@@ -176,13 +255,13 @@ Page({
 
   lesson1Method: function(e) {
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
-
-
     this.setData({
       lessonShow: false,
       wordShow: true,
       name: this.getName(),
-      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1']
+      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1'],
+      wordList: this.getWordList(this.getResultArray()[0]),
+      writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
 
@@ -192,7 +271,9 @@ Page({
       lessonShow: false,
       wordShow: true,
       name: this.getName(),
-      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2']
+      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2'],
+      wordList: this.getWordList(this.getResultArray()[0]),
+      writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
 
@@ -202,7 +283,9 @@ Page({
       lessonShow: false,
       wordShow: true,
       name: this.getName(),
-      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3']
+      lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3'],
+      wordList: this.getWordList(this.getResultArray()[0]),
+      writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
 
@@ -211,10 +294,8 @@ Page({
       lessonShow: false
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
+
+  getResultArray: function() {
     let term = wx.getStorageSync('term');
     let lesson = wx.getStorageSync('lesson');
 
@@ -226,7 +307,6 @@ Page({
       let m = 0;
       for (var k in json) {
         if (term == json[k].term) {
-          console.log(json[k].term);
           let wordList = json[k].wordList;
           for (let x in wordList) {
             if (lesson == wordList[x].type) {
@@ -242,27 +322,40 @@ Page({
         }
       }
 
-      console.log(wordString);
-      console.log(wirteString);
       var writeArray = wirteString.replace(/(.)(?=[^$])/g, "$1,").split(",");
       var wordArray = wordString.split(" ");
+      let resultArray = [];
+      resultArray[0] = wordArray;
+      resultArray[1] = writeArray;
+      resultArray[2] = term;
+      resultArray[3] = name;
+      resultArray[4] = lesson;
+      return resultArray;
+    }
+  },
 
-      this.setData({
-        wordShow: true,
-        term: term,
-        name: name,
-        lesson: lesson,
-        wordList: this.getWordList(wordArray),
-        writeList: this.getWriteList(writeArray)
-      })
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function(options) {
+    let term = wx.getStorageSync('term');
+    let lesson = wx.getStorageSync('lesson');
+    if (term == '' || lesson == '') {
+      return;
     }
 
+    this.setData({
+      wordShow: true,
+      wordList: this.getWordList(this.getResultArray()[0]),
+      writeList: this.getWriteList(this.getResultArray()[1]),
+      term: this.getResultArray()[2],
+      name: this.getResultArray()[3],
+      lesson: this.getResultArray()[4]
+    })
   },
 
 
   getWordList: function(wordArray) {
-
-    console.log(wordArray);
     let wordList = [];
     let wordItem = {};
 
@@ -275,7 +368,7 @@ Page({
         wordItem['word2'] = wordArray[x];
       } else if (n == 3) {
         wordItem['word3'] = wordArray[x];
-      }  else if (n == 4) {
+      } else if (n == 4) {
         n = 0;
         wordItem['word4'] = wordArray[x];
         wordList.push(wordItem);
@@ -285,15 +378,13 @@ Page({
 
 
     if (wordList.length < wordArray.length) {
-      wordItem["word1"] = wordArray[wordList.length * 5];
-      wordItem["word2"] = wordArray[wordList.length * 5 + 1];
-      wordItem["word3"] = wordArray[wordList.length * 5 + 2];
-      wordItem["word4"] = wordArray[wordList.length * 5 + 3];
+      wordItem["word1"] = wordArray[wordList.length * 4];
+      wordItem["word2"] = wordArray[wordList.length * 4 + 1];
+      wordItem["word3"] = wordArray[wordList.length * 4 + 2];
+      wordItem["word4"] = wordArray[wordList.length * 4 + 3];
       wordList.push(wordItem);
     }
 
-
-    console.log(wordList);
     return wordList;
   },
 

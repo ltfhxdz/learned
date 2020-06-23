@@ -7,7 +7,7 @@
 
 .item1 {
   color: black;
-  font-size: 38rpx;
+  font-size: 35rpx;
   background-color: cyan;
   width: 200rpx;
   text-align: center;
@@ -28,8 +28,15 @@
 .item3 {
   margin-top: 20rpx;
   width: 98%;
+  min-height: 200rpx;
+  background:cyan;
+}
+
+.item7 {
+  margin-top: 20rpx;
+  width: 98%;
   min-height: 300rpx;
-  background:whitesmoke;
+  background:cyan;
 }
 
 .item5 {
@@ -40,9 +47,18 @@
 }
 
 .item6 {
+  display: flex;
+  flex-direction: column;
+  font-size: 15px;
   margin-top: 50rpx;
   margin-left: 30rpx;
 }
+
+.item8 {
+  margin-top: 10rpx;
+}
+
+
 .line {
   margin-top: 10rpx;
   height: 1px;
