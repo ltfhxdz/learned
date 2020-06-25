@@ -8,7 +8,8 @@ Page({
   data: {
     upArray: ["一年级上册", "二年级上册", "三年级上册", "四年级上册", "五年级上册", "六年级上册"],
     downArray: ["一年级下册", "二年级下册", "三年级下册", "四年级下册", "五年级下册", "六年级下册"],
-    lessonList: []
+    lessonList: [],
+    term:''
   },
 
   select: function(e) {
@@ -42,7 +43,7 @@ Page({
       termShow: true,
       wordShow: false,
       writeShow: false,
-      classShow:false,
+      classShow: false,
       termList: termList
     })
   },
@@ -326,11 +327,11 @@ Page({
     }
 
     this.data.lessonList = lessonList;
-    wx.setStorageSync('term', this.data.upArray[e.currentTarget.dataset.index]);
+    this.data.term = this.data.upArray[e.currentTarget.dataset.index];
+    
     this.setData({
       termShow: false,
       lessonShow: true,
-      term: this.data.upArray[e.currentTarget.dataset.index],
       lessonList: lessonList
     })
   },
@@ -373,11 +374,10 @@ Page({
       lessonList.push(lessonItem);
     }
     this.data.lessonList = lessonList;
-    wx.setStorageSync('term', this.data.downArray[e.currentTarget.dataset.index]);
+    this.data.term = this.data.downArray[e.currentTarget.dataset.index];
     this.setData({
       termShow: false,
       lessonShow: true,
-      term: this.data.downArray[e.currentTarget.dataset.index],
       lessonList: lessonList
     })
   },
@@ -404,11 +404,13 @@ Page({
 
   lesson1Method: function(e) {
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
+    wx.setStorageSync('term', this.data.term);
     this.setData({
       lessonShow: false,
-      classShow:true,
+      classShow: true,
       wordShow: this.getWordShow(),
       writeShow: this.getWriteShow(),
+      term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1'],
       wordList: this.getWordList(this.getResultArray()[0]),
@@ -418,11 +420,13 @@ Page({
 
   lesson2Method: function(e) {
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson2']);
+    wx.setStorageSync('term', this.data.term);
     this.setData({
       lessonShow: false,
       classShow: true,
       wordShow: this.getWordShow(),
       writeShow: this.getWriteShow(),
+      term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2'],
       wordList: this.getWordList(this.getResultArray()[0]),
@@ -432,11 +436,13 @@ Page({
 
   lesson3Method: function(e) {
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson3']);
+    wx.setStorageSync('term', this.data.term);
     this.setData({
       lessonShow: false,
       classShow: true,
       wordShow: this.getWordShow(),
       writeShow: this.getWriteShow(),
+      term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3'],
       wordList: this.getWordList(this.getResultArray()[0]),
