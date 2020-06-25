@@ -28,14 +28,12 @@
 .item3 {
   margin-top: 20rpx;
   width: 98%;
-  min-height: 200rpx;
   background:cyan;
 }
 
 .item7 {
   margin-top: 20rpx;
   width: 98%;
-  min-height: 300rpx;
   background:cyan;
 }
 

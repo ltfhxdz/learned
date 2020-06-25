@@ -41,19 +41,24 @@ Page({
     this.setData({
       termShow: true,
       wordShow: false,
+      writeShow: false,
+      classShow:false,
       termList: termList
     })
   },
 
   termCancel: function(e) {
     this.setData({
-      termShow: false
+      termShow: false,
+      wordShow: true,
+      writeShow: true,
+      classShow: true
     })
   },
 
   //数组去重
   unique: function(array) {
-    var temp = []; 
+    var temp = [];
     for (var i = 0; i < array.length; i++) {
       if (temp.indexOf(array[i]) == -1) {
         temp.push(array[i]);
@@ -65,77 +70,221 @@ Page({
   previous: function(e) {
     let term = wx.getStorageSync('term');
     let lesson = wx.getStorageSync('lesson');
-    console.log(term);
-    console.log(lesson);
+    let lessonIndex = 0;
+    let termIndex = 0;
 
-    if (term == '' || lesson == ''){
+    if (term == '' || lesson == '') {
       return;
     }
 
     let json = oneWordJson.oneWordJson;
-    let termArray = [];
-    for (var k in json) {
-      termArray.push(json[k].term);
-    }
 
-    let typeArray = [];
+    let lessonArray = [];
     for (var k in json) {
       if (json[k].term == term) {
         var wordList = json[k].wordList;
         for (let x in wordList) {
-          typeArray.push(wordList[x].type);
+          lessonArray.push(wordList[x].type);
         }
         break;
       }
     }
-    termArray = this.unique(termArray);
-    console.log(termArray);
-    console.log(typeArray);
 
-    let index = 0;
-    for (var k in typeArray) {
-      if (lesson == typeArray[k]){
-        index  = k;
+    for (var k in lessonArray) {
+      if (lesson == lessonArray[k]) {
+        lessonIndex = k;
         break;
       }
     }
 
-    console.log(index);
-    if (index == 0){
+    if (lessonIndex == 0) {
       //选择上一册
+      let termArray = [];
+      for (var k in json) {
+        termArray.push(json[k].term);
+      }
+      termArray = this.unique(termArray);
+
+      for (var k in termArray) {
+        if (term == termArray[k]) {
+          termIndex = k;
+          break;
+        }
+      }
+      if (termIndex == 0) {
+
+      } else {
+        let term = termArray[parseInt(termIndex) - 1];
+        wx.setStorageSync('term', term);
+        let name = '';
+        let lesson = '';
+        for (var k in json) {
+          if (json[k].term == term) {
+            var wordList = json[k].wordList;
+            name = wordList[wordList.length - 1].name;
+            lesson = wordList[wordList.length - 1].type;
+            wx.setStorageSync('lesson', lesson);
+          }
+        }
+
+        this.setData({
+          term: term,
+          lesson: lesson,
+          name: name,
+          wordShow: this.getWordShow(),
+          writeShow: this.getWriteShow(),
+          wordList: this.getWordList(this.getResultArray()[0]),
+          writeList: this.getWriteList(this.getResultArray()[1])
+        })
+      }
+
     } else {
-      lesson = typeArray[index - 1];
+      lesson = lessonArray[parseInt(lessonIndex) - 1];
       wx.setStorageSync('lesson', lesson);
       let name = '';
       for (var k in json) {
         if (json[k].term == term) {
           var wordList = json[k].wordList;
           for (let x in wordList) {
-            if (lesson == wordList[x].type ){
+            if (lesson == wordList[x].type) {
               name = wordList[x].name;
-              console.log(name);
               break;
             }
           }
         }
       }
 
-      console.log(term);
-      console.log(lesson);
-      console.log(name);
+      this.setData({
+        term: term,
+        lesson: lesson,
+        name: name,
+        wordShow: this.getWordShow(),
+        writeShow: this.getWriteShow(),
+        wordList: this.getWordList(this.getResultArray()[0]),
+        writeList: this.getWriteList(this.getResultArray()[1])
+      })
+    }
+
+  },
+
+  next: function(e) {
+
+    let term = wx.getStorageSync('term');
+    let lesson = wx.getStorageSync('lesson');
+    let lessonIndex = 0;
+    let termIndex = 0;
+
+    if (term == '' || lesson == '') {
+      return;
+    }
+
+    let json = oneWordJson.oneWordJson;
+
+    let lessonArray = [];
+    for (var k in json) {
+      if (json[k].term == term) {
+        var wordList = json[k].wordList;
+        for (let x in wordList) {
+          lessonArray.push(wordList[x].type);
+        }
+        break;
+      }
+    }
+
+    for (var k in lessonArray) {
+      if (lesson == lessonArray[k]) {
+        lessonIndex = k;
+        break;
+      }
+    }
+
+    if (lessonIndex == lessonArray.length - 1) {
+      //选择下一册
+      let termArray = [];
+      for (var k in json) {
+        termArray.push(json[k].term);
+      }
+      termArray = this.unique(termArray);
+
+      for (var k in termArray) {
+        if (term == termArray[k]) {
+          termIndex = k;
+          break;
+        }
+      }
+      if (termIndex == termArray.length - 1) {
+
+      } else {
+        let term = termArray[parseInt(termIndex) + 1];
+        wx.setStorageSync('term', term);
+        let name = '';
+        let lesson = '';
+        for (var k in json) {
+          if (json[k].term == term) {
+            var wordList = json[k].wordList;
+            name = wordList[0].name;
+            lesson = wordList[0].type;
+            wx.setStorageSync('lesson', lesson);
+          }
+        }
+
+        this.setData({
+          term: term,
+          lesson: lesson,
+          name: name,
+          wordShow: this.getWordShow(),
+          writeShow: this.getWriteShow(),
+          wordList: this.getWordList(this.getResultArray()[0]),
+          writeList: this.getWriteList(this.getResultArray()[1])
+        })
+      }
+
+    } else {
+      lesson = lessonArray[parseInt(lessonIndex) + 1];
+      wx.setStorageSync('lesson', lesson);
+      let name = '';
+      for (var k in json) {
+        if (json[k].term == term) {
+          var wordList = json[k].wordList;
+          for (let x in wordList) {
+            if (lesson == wordList[x].type) {
+              name = wordList[x].name;
+              break;
+            }
+          }
+        }
+      }
 
       this.setData({
         term: term,
         lesson: lesson,
         name: name,
+        wordShow: this.getWordShow(),
+        writeShow: this.getWriteShow(),
         wordList: this.getWordList(this.getResultArray()[0]),
         writeList: this.getWriteList(this.getResultArray()[1])
       })
     }
+
   },
 
-  next: function(e) {
+  getWordShow: function() {
 
+    let wordList = this.getWordList(this.getResultArray()[0]);
+    let wordShow = false;
+    if (this.getResultArray()[0] != '') {
+      wordShow = true;
+    }
+    return wordShow;
+  },
+
+  getWriteShow: function() {
+    let writeList = this.getWriteList(this.getResultArray()[1]);
+    let writeShow = false;
+    if (writeList.length > 0) {
+      writeShow = true;
+    }
+    return writeShow;
   },
 
   term1Method: function(e) {
@@ -257,7 +406,9 @@ Page({
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
     this.setData({
       lessonShow: false,
-      wordShow: true,
+      classShow:true,
+      wordShow: this.getWordShow(),
+      writeShow: this.getWriteShow(),
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1'],
       wordList: this.getWordList(this.getResultArray()[0]),
@@ -269,7 +420,9 @@ Page({
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson2']);
     this.setData({
       lessonShow: false,
-      wordShow: true,
+      classShow: true,
+      wordShow: this.getWordShow(),
+      writeShow: this.getWriteShow(),
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2'],
       wordList: this.getWordList(this.getResultArray()[0]),
@@ -281,7 +434,9 @@ Page({
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson3']);
     this.setData({
       lessonShow: false,
-      wordShow: true,
+      classShow: true,
+      wordShow: this.getWordShow(),
+      writeShow: this.getWriteShow(),
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3'],
       wordList: this.getWordList(this.getResultArray()[0]),
@@ -291,7 +446,10 @@ Page({
 
   lessonCancel: function(e) {
     this.setData({
-      lessonShow: false
+      lessonShow: false,
+      wordShow: true,
+      writeShow: true,
+      classShow: true
     })
   },
 
@@ -345,7 +503,9 @@ Page({
     }
 
     this.setData({
-      wordShow: true,
+      classShow: true,
+      wordShow: this.getWordShow(),
+      writeShow: this.getWriteShow(),
       wordList: this.getWordList(this.getResultArray()[0]),
       writeList: this.getWriteList(this.getResultArray()[1]),
       term: this.getResultArray()[2],
@@ -358,7 +518,6 @@ Page({
   getWordList: function(wordArray) {
     let wordList = [];
     let wordItem = {};
-
     let n = 0;
     for (var x in wordArray) {
       n++;
@@ -378,10 +537,33 @@ Page({
 
 
     if (wordList.length < wordArray.length) {
-      wordItem["word1"] = wordArray[wordList.length * 4];
-      wordItem["word2"] = wordArray[wordList.length * 4 + 1];
-      wordItem["word3"] = wordArray[wordList.length * 4 + 2];
-      wordItem["word4"] = wordArray[wordList.length * 4 + 3];
+      if (typeof(wordArray[wordList.length * 4]) == "undefined") {
+
+      } else if (!wordArray[wordList.length * 4] && typeof(wordArray[wordList.length * 4]) != "undefined" && wordArray[wordList.length * 4] != 0) {
+        wordItem["word1"] = wordArray[wordList.length * 4];
+      }
+
+      if (typeof(wordArray[wordList.length * 4 + 1]) == "undefined") {
+
+      } else {
+        wordItem["word2"] = wordArray[wordList.length * 4 + 1];
+
+      }
+
+      if (typeof(wordArray[wordList.length * 4 + 2]) == "undefined") {
+
+      } else {
+        wordItem["word3"] = wordArray[wordList.length * 4 + 2];
+
+      }
+
+      if (typeof(wordArray[wordList.length * 4 + 3]) == "undefined") {
+
+      } else {
+        wordItem["word4"] = wordArray[wordList.length * 4 + 3];
+
+      }
+
       wordList.push(wordItem);
     }
 

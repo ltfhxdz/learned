@@ -56,7 +56,7 @@
   </view>
 </view>
 
-<view class="item6" wx:if="{{wordShow}}">
+<view class="item6" wx:if="{{classShow}}">
   <text decode="{{true}}">{{term}}</text>
   <text decode="{{true}}" class="item8">{{lesson}}：{{name}}</text>
 </view>
@@ -76,7 +76,7 @@
   </view>
 </view>
 
-<view class='item3' wx:if="{{wordShow}}">
+<view class='item3' wx:if="{{writeShow}}">
   <view class='title'>
     <text>写字表</text>
   </view>
