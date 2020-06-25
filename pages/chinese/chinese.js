@@ -9,9 +9,57 @@ Page({
     upArray: ["一年级上册", "二年级上册", "三年级上册", "四年级上册", "五年级上册", "六年级上册"],
     downArray: ["一年级下册", "二年级下册", "三年级下册", "四年级下册", "五年级下册", "六年级下册"],
     lessonList: [],
-    term:''
+    term: '',
+    isrepeat: true
   },
 
+  repeat:function(){
+
+    let json = oneWordJson.oneWordJson;
+    let souceArray = [];
+
+    for (var k in json) {
+      let wordList = json[k].wordList;
+      for (var x in wordList) {
+        let name = json[k].term + wordList[x].type;
+        let souceMap = {};
+        souceMap['name'] = name;
+        souceMap['write'] = wordList[x].word;
+        souceArray.push(souceMap);
+      }
+      if (json[k].term == '六年级下册') {
+        break;
+      }
+    }
+
+    for (var k in json) {
+      let wordList = json[k].wordList;
+      for (var x in wordList) {
+        let name = json[k].term + wordList[x].type;
+        for (let y in souceArray) {
+          if (name == souceArray[y].name) {
+            let souceMap = souceArray[y];
+            if (souceMap['write'] != wordList[x].word) {
+              souceMap['word'] = wordList[x].word;
+            }
+          }
+        }
+      }
+    }
+
+    console.log(souceArray);
+
+
+
+
+    this.setData({
+      isrepeat: !this.data.isrepeat
+    })
+  },
+
+  mark: function () {
+
+  },
   select: function(e) {
     let termList = [{
         "term1": "一年级上册",
@@ -328,7 +376,7 @@ Page({
 
     this.data.lessonList = lessonList;
     this.data.term = this.data.upArray[e.currentTarget.dataset.index];
-    
+
     this.setData({
       termShow: false,
       lessonShow: true,

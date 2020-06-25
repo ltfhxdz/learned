@@ -61,9 +61,10 @@
   <text decode="{{true}}" class="item8">{{lesson}}：{{name}}</text>
 </view>
 
-<view class='item7' wx:if="{{wordShow}}">
+<view class='item3' wx:if="{{wordShow}}">
   <view class='title'>
-    <text>词语表</text>
+    <text class="item10">词语表</text>
+    <text class="item9"  bindtap="mark">标记</text>
   </view>
 
   <view wx:for="{{wordList}}" wx:key="key">
@@ -78,7 +79,8 @@
 
 <view class='item3' wx:if="{{writeShow}}">
   <view class='title'>
-    <text>写字表</text>
+    <text class="item10">写字表</text>
+    <text class="item9" bindtap="repeat">{{isrepeat ? "去重" : "恢复"}}</text>
   </view>
 
   <view wx:for="{{writeList}}" wx:key="key">
