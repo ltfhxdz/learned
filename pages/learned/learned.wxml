@@ -26,12 +26,14 @@
 
   </view>
 
+</view>
+
+<view class="item5">
   <view class="item1">
-    <button bindtap="query" style="color:black;background-color:cyan">查询</button>
+     <text bindtap="query">查询</text>
   </view>
 </view>
 
-<view class="hr"></view>
 <view class="name2" wx:if="{{flagEnglish}}">多次出现：</view>
 <view>
   <template is="words" data="{{array}}" />

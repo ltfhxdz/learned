@@ -13,51 +13,66 @@ Page({
     isrepeat: true
   },
 
-  repeat:function(){
-
-    let json = oneWordJson.oneWordJson;
-    let souceArray = [];
-
-    for (var k in json) {
-      let wordList = json[k].wordList;
-      for (var x in wordList) {
-        let name = json[k].term + wordList[x].type;
-        let souceMap = {};
-        souceMap['name'] = name;
-        souceMap['write'] = wordList[x].word;
-        souceArray.push(souceMap);
+  repeat: function() {
+    let writeList = this.getWriteList(this.getResultArray()[1]);
+    if (this.data.isrepeat) {
+      let wordList = this.getWordList(this.getResultArray()[0]);
+      let wordString = '';
+      for (let x in wordList) {
+        if (typeof(wordList[x].word1) != "undefined") {
+          wordString = wordString + wordList[x].word1 + ',';
+        }
+        if (typeof(wordList[x].word2) != "undefined") {
+          wordString = wordString + wordList[x].word2 + ',';
+        }
+        if (typeof(wordList[x].word3) != "undefined") {
+          wordString = wordString + wordList[x].word3 + ',';
+        }
+        if (typeof(wordList[x].word4) != "undefined") {
+          wordString = wordString + wordList[x].word4 + ',';
+        }
       }
-      if (json[k].term == '六年级下册') {
-        break;
-      }
-    }
 
-    for (var k in json) {
-      let wordList = json[k].wordList;
-      for (var x in wordList) {
-        let name = json[k].term + wordList[x].type;
-        for (let y in souceArray) {
-          if (name == souceArray[y].name) {
-            let souceMap = souceArray[y];
-            if (souceMap['write'] != wordList[x].word) {
-              souceMap['word'] = wordList[x].word;
-            }
+      var writeString = '';
+
+      for (let x in writeList) {
+        if (wordString.indexOf(writeList[x].write1) == -1) {
+          if (typeof(writeList[x].write1) != "undefined") {
+            writeString = writeString + writeList[x].write1;
+          }
+        }
+        if (wordString.indexOf(writeList[x].write2) == -1) {
+          if (typeof(writeList[x].write2) != "undefined") {
+            writeString = writeString + writeList[x].write2;
+          }
+        }
+        if (wordString.indexOf(writeList[x].write3) == -1) {
+          if (typeof(writeList[x].write3) != "undefined") {
+            writeString = writeString + writeList[x].write3;
+          }
+        }
+        if (wordString.indexOf(writeList[x].write4) == -1) {
+          if (typeof(writeList[x].write4) != "undefined") {
+            writeString = writeString + writeList[x].write4;
+          }
+        }
+        if (wordString.indexOf(writeList[x].write5) == -1) {
+          if (typeof(writeList[x].write5) != "undefined") {
+            writeString = writeString + writeList[x].write5;
           }
         }
       }
+      var writeArray = writeString.replace(/(.)(?=[^$])/g, "$1,").split(",");
+      writeList = this.getWriteList(writeArray);
     }
 
-    console.log(souceArray);
-
-
-
-
     this.setData({
-      isrepeat: !this.data.isrepeat
+      isrepeat: !this.data.isrepeat,
+      writeList: writeList
     })
   },
 
-  mark: function () {
+  mark: function() {
 
   },
   select: function(e) {
@@ -514,7 +529,7 @@ Page({
     if (term != "" && lesson != "") {
       let json = oneWordJson.oneWordJson;
       let wordString = '';
-      let wirteString = '';
+      let writeString = '';
       let name = '';
       let m = 0;
       for (var k in json) {
@@ -525,7 +540,7 @@ Page({
               name = wordList[x].name;
               if (m == 0) {
                 m = m + 1;
-                wirteString = wordList[x].word;
+                writeString = wordList[x].word;
               } else if (m == 1) {
                 wordString = wordList[x].word;
               }
@@ -534,7 +549,7 @@ Page({
         }
       }
 
-      var writeArray = wirteString.replace(/(.)(?=[^$])/g, "$1,").split(",");
+      var writeArray = writeString.replace(/(.)(?=[^$])/g, "$1,").split(",");
       var wordArray = wordString.split(" ");
       let resultArray = [];
       resultArray[0] = wordArray;
@@ -589,33 +604,21 @@ Page({
       }
     }
 
-
-    if (wordList.length < wordArray.length) {
-      if (typeof(wordArray[wordList.length * 4]) == "undefined") {
-
-      } else if (!wordArray[wordList.length * 4] && typeof(wordArray[wordList.length * 4]) != "undefined" && wordArray[wordList.length * 4] != 0) {
+    if (wordList.length * 4 < wordArray.length) {
+      if (typeof(wordArray[wordList.length * 4]) != "undefined") {
         wordItem["word1"] = wordArray[wordList.length * 4];
       }
 
-      if (typeof(wordArray[wordList.length * 4 + 1]) == "undefined") {
-
-      } else {
+      if (typeof(wordArray[wordList.length * 4 + 1]) != "undefined") {
         wordItem["word2"] = wordArray[wordList.length * 4 + 1];
-
       }
 
-      if (typeof(wordArray[wordList.length * 4 + 2]) == "undefined") {
-
-      } else {
+      if (typeof(wordArray[wordList.length * 4 + 2]) != "undefined") {
         wordItem["word3"] = wordArray[wordList.length * 4 + 2];
-
       }
 
-      if (typeof(wordArray[wordList.length * 4 + 3]) == "undefined") {
-
-      } else {
+      if (typeof(wordArray[wordList.length * 4 + 3]) != "undefined") {
         wordItem["word4"] = wordArray[wordList.length * 4 + 3];
-
       }
 
       wordList.push(wordItem);
@@ -649,11 +652,23 @@ Page({
     }
 
 
-    if (writeList.length < writeArray.length) {
-      writeItem["write1"] = writeArray[writeList.length * 5];
-      writeItem["write2"] = writeArray[writeList.length * 5 + 1];
-      writeItem["write3"] = writeArray[writeList.length * 5 + 2];
-      writeItem["write4"] = writeArray[writeList.length * 5 + 3];
+    if (writeList.length * 5 < writeArray.length) {
+      if (typeof(writeArray[writeList.length * 5]) != "undefined") {
+        writeItem["write1"] = writeArray[writeList.length * 5];
+      }
+
+      if (typeof(writeArray[writeList.length * 5 + 1]) != "undefined") {
+        writeItem["write2"] = writeArray[writeList.length * 5 + 1];
+      }
+
+      if (typeof(writeArray[writeList.length * 5 + 2]) != "undefined") {
+        writeItem["write3"] = writeArray[writeList.length * 5 + 2];
+      }
+
+      if (typeof(writeArray[writeList.length * 5 + 3]) != "undefined") {
+        writeItem["write4"] = writeArray[writeList.length * 5 + 3];
+      }
+
       writeList.push(writeItem);
     }
 

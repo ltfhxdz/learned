@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/chinese/chinese",
-    "pages/learned/learned",
-    "pages/english/english"
+    "pages/english/english",
+    "pages/learned/learned"
   ],
   "window": {
     "backgroundTextStyle": "dark",
@@ -16,12 +16,6 @@
     "backgroundColor": "#000000",
     "list": [
       {
-        "pagePath": "pages/learned/learned",
-        "iconPath": "pages/images/meihua.jpg",
-        "selectedIconPath": "pages/images/meihua.jpg",
-        "text": "字词"
-      },
-      {
         "pagePath": "pages/chinese/chinese",
         "iconPath": "pages/images/lanhua.jpg",
         "selectedIconPath": "pages/images/lanhua.jpg",
@@ -32,6 +26,12 @@
         "iconPath": "pages/images/hehua.jpg",
         "selectedIconPath": "pages/images/hehua.jpg",
         "text": "英语"
+      },
+      {
+        "pagePath": "pages/learned/learned",
+        "iconPath": "pages/images/meihua.jpg",
+        "selectedIconPath": "pages/images/meihua.jpg",
+        "text": "字词"
       }
     ]
   },
