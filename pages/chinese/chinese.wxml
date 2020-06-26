@@ -64,7 +64,7 @@
 <view class='item3' wx:if="{{wordShow}}">
   <view class='title'>
     <text class="item10">词语表</text>
-    <text class="item9"  bindtap="mark">标记</text>
+    <text class="item9" bindtap="mark">标记</text>
   </view>
 
   <view wx:for="{{wordList}}" wx:key="key">
@@ -80,7 +80,7 @@
 <view class='item3' wx:if="{{writeShow}}">
   <view class='title'>
     <text class="item10">写字表</text>
-    <text class="item9" bindtap="repeat">{{isrepeat ? "去重" : "恢复"}}</text>
+    <text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
   </view>
 
   <view wx:for="{{writeList}}" wx:key="key">
