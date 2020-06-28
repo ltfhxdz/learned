@@ -8,9 +8,152 @@ Page({
   data: {
     upArray: ["一年级上册", "二年级上册", "三年级上册", "四年级上册", "五年级上册", "六年级上册"],
     downArray: ["一年级下册", "二年级下册", "三年级下册", "四年级下册", "五年级下册", "六年级下册"],
-    lessonList: [],
     term: '',
-    isrepeat: true
+    isrepeat: true,
+    isMark: true
+  },
+
+
+  notMarkListAddWord1: function(index) {
+    let wordList = this.getWordList(this.getResultArray()[0]);
+    for (let x in wordList) {
+      if (x == index) {
+        let term = wx.getStorageSync('term');
+        let lesson = wx.getStorageSync('lesson');
+        let termlession = term + lesson;
+
+        let markArray = [];
+        markArray.push(wordList[x].word1);
+
+        let markMap = {};
+        markMap['termlession'] = termlession;
+        markMap['mark'] = markArray;
+
+        let markList = [];
+        markList.push(markMap);
+        wx.setStorageSync('markList', JSON.stringify(markList));
+        break;
+      }
+    }
+  },
+  word1Method: function(e) {
+
+    let markString = wx.getStorageSync('markList');
+    if (markString == "") {
+      this.notMarkListAddWord1(e.currentTarget.dataset.index);
+    } else {
+      let term = wx.getStorageSync('term');
+      let lesson = wx.getStorageSync('lesson');
+      let termlession = term + lesson;
+
+      let markList = JSON.parse(markString);
+      let termlessionFlag = 0;
+      let markFlag = 0;
+      let wordList = this.getWordList(this.getResultArray()[0]);
+      for (let x in wordList) {
+        if (x == e.currentTarget.dataset.index) {
+          for (let y in markList) {
+            if (markList[y].termlession == termlession) {
+              termlessionFlag = 1;
+              let markArray = markList[y].mark;
+              for (let z in markArray) {
+                if (wordList[x].word1 == markArray[z]) {
+                  //如果找到，进行删除处理
+                  markFlag = 1;
+                  markArray.splice(z, 1);
+                  if (markArray.length == 0) {
+                    //如果数组长度为0，删除termlession
+                    markList.splice(y, 1);
+                    if (markList.length == 0) {
+                      wx.removeStorageSync('markList');
+                    } else {
+                      wx.setStorageSync('markList', JSON.stringify(markList));
+                    }
+                  } else {
+                    wx.setStorageSync('markList', JSON.stringify(markList));
+                  }
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      console.log('markFlag=' + markFlag);
+      console.log('termlessionFlag=' + termlessionFlag);
+      if (markFlag == 0) {
+        //当前词语，没有标记过
+        for (let x in wordList) {
+          if (x == e.currentTarget.dataset.index) {
+            for (let y in markList) {
+              if (markList[y].termlession == termlession) {
+                markList[y]['mark'].push(wordList[x].word1);
+                wx.setStorageSync('markList', JSON.stringify(markList));
+                break;
+              }
+            }
+          }
+        }
+      }
+
+      if (termlessionFlag == 0) {
+        //当前课文，没有标记过
+        for (let x in wordList) {
+          if (x == e.currentTarget.dataset.index) {
+            let markArray = [];
+            markArray.push(wordList[x].word1);
+
+            let markMap = {};
+            markMap['termlession'] = termlession;
+            markMap['mark'] = markArray;
+
+            markList.push(markMap);
+            wx.setStorageSync('markList', JSON.stringify(markList));
+            break;
+          }
+        }
+      }
+
+      console.log('-------------');
+      console.log(markList);
+      console.log('-------------');
+
+    }
+
+
+    // 设置背景颜色数据
+    this.setData({
+      key: e.currentTarget.dataset.index
+    });
+  },
+
+  word2Method: function(e) {
+
+  },
+
+  word3Method: function(e) {
+
+  },
+
+  word4Method: function(e) {
+
+  },
+
+  write1Method: function(e) {
+
+  },
+  write2Method: function(e) {
+
+  },
+  write3Method: function(e) {
+
+  },
+  write4Method: function(e) {
+
+  },
+  write5Method: function(e) {
+
   },
 
   repeat: function() {

@@ -24,6 +24,13 @@
   text-align: center;
   background-color: AliceBlue;
 }
+.item21 {
+  color: black;
+  font-size: 38rpx;
+  width: 200rpx;
+  text-align: center;
+  background-color: red;
+}
 
 .item3 {
   margin-top: 20rpx;
@@ -70,6 +77,7 @@
 .title {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
   font-size: 18px;
   color: black;
 }

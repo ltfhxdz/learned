@@ -35,9 +35,10 @@
 </view>
 
 <view class="name2" wx:if="{{flagEnglish}}">多次出现：</view>
-<view>
+
+<scroll-view scroll-y="true">
   <template is="words" data="{{array}}" />
-</view>
+</scroll-view>
 
 <view class="item3">
   <text class="item4">小学字词：人教版语文，上教版英语</text>

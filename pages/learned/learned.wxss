@@ -116,7 +116,6 @@
   flex-direction: column;
   margin-left: 10rpx;
   margin-right: 10rpx;
-  margin-bottom: 2rpx;
   background-color: AliceBlue;
 }
 

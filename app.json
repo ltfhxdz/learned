@@ -7,7 +7,7 @@
   "window": {
     "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#000000",
-    "navigationBarTitleText": "学过",
+    "navigationBarTitleText": "听写助手",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
@@ -31,7 +31,7 @@
         "pagePath": "pages/learned/learned",
         "iconPath": "pages/images/meihua.jpg",
         "selectedIconPath": "pages/images/meihua.jpg",
-        "text": "字词"
+        "text": "查询"
       }
     ]
   },
