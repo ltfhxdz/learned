@@ -14,8 +14,9 @@ Page({
   },
 
 
-  notMarkListAddWord1: function(index) {
+  notMarkListAddWord: function (index, wordIndex) {
     let wordList = this.getWordList(this.getResultArray()[0]);
+
     for (let x in wordList) {
       if (x == index) {
         let term = wx.getStorageSync('term');
@@ -23,7 +24,7 @@ Page({
         let termlession = term + lesson;
 
         let markArray = [];
-        markArray.push(wordList[x].word1);
+        markArray.push(wordList[x][wordIndex]);
 
         let markMap = {};
         markMap['termlession'] = termlession;
@@ -36,11 +37,11 @@ Page({
       }
     }
   },
-  word1Method: function(e) {
 
+  setMarkList: function (index,wordIndex){
     let markString = wx.getStorageSync('markList');
     if (markString == "") {
-      this.notMarkListAddWord1(e.currentTarget.dataset.index);
+      this.notMarkListAddWord(index, wordIndex);
     } else {
       let term = wx.getStorageSync('term');
       let lesson = wx.getStorageSync('lesson');
@@ -51,13 +52,13 @@ Page({
       let markFlag = 0;
       let wordList = this.getWordList(this.getResultArray()[0]);
       for (let x in wordList) {
-        if (x == e.currentTarget.dataset.index) {
+        if (x == index) {
           for (let y in markList) {
             if (markList[y].termlession == termlession) {
               termlessionFlag = 1;
               let markArray = markList[y].mark;
               for (let z in markArray) {
-                if (wordList[x].word1 == markArray[z]) {
+                if (wordList[x][wordIndex] == markArray[z]) {
                   //如果找到，进行删除处理
                   markFlag = 1;
                   markArray.splice(z, 1);
@@ -80,15 +81,13 @@ Page({
         }
       }
 
-      console.log('markFlag=' + markFlag);
-      console.log('termlessionFlag=' + termlessionFlag);
       if (markFlag == 0) {
         //当前词语，没有标记过
         for (let x in wordList) {
-          if (x == e.currentTarget.dataset.index) {
+          if (x == index) {
             for (let y in markList) {
               if (markList[y].termlession == termlession) {
-                markList[y]['mark'].push(wordList[x].word1);
+                markList[y]['mark'].push(wordList[x][wordIndex]);
                 wx.setStorageSync('markList', JSON.stringify(markList));
                 break;
               }
@@ -100,9 +99,9 @@ Page({
       if (termlessionFlag == 0) {
         //当前课文，没有标记过
         for (let x in wordList) {
-          if (x == e.currentTarget.dataset.index) {
+          if (x == index) {
             let markArray = [];
-            markArray.push(wordList[x].word1);
+            markArray.push(wordList[x][wordIndex]);
 
             let markMap = {};
             markMap['termlession'] = termlession;
@@ -115,28 +114,88 @@ Page({
         }
       }
 
-      console.log('-------------');
-      console.log(markList);
-      console.log('-------------');
+    }
+  },
 
+  getMarkWordList: function() {
+    let wordList = this.getWordList(this.getResultArray()[0]);
+    let markString = wx.getStorageSync('markList');
+    let markList = [];
+    if (markString != ''){
+      markList = JSON.parse(markString);
+    }
+    let term = wx.getStorageSync('term');
+    let lesson = wx.getStorageSync('lesson');
+    let termlession = term + lesson;
+
+    console.log(wordList);
+    console.log(markList);
+    for (let x in markList) {
+      if (markList[x].termlession == termlession) {
+        let markArray = markList[x].mark;
+        for (let y in markArray) {
+          for(let z in wordList){
+            if (markArray[y] == wordList[z].word1){
+              wordList[z]['mark1'] = z;
+            } else if (markArray[y] == wordList[z].word2) {
+              wordList[z]['mark2'] = z;
+            } else if (markArray[y] == wordList[z].word3) {
+              wordList[z]['mark3'] = z;
+            } else if (markArray[y] == wordList[z].word4) {
+              wordList[z]['mark4'] = z;
+            }  
+          }
+        }
+        break;
+      }
     }
 
+    console.log('-----------------');
+    console.log(wordList);
+    console.log('-----------------');
+    return wordList;
+  },
 
-    // 设置背景颜色数据
+  word1Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let wordIndex = 'word1';
+    this.setMarkList(index, wordIndex);
+
     this.setData({
-      key: e.currentTarget.dataset.index
+      wordList: this.getMarkWordList()
     });
   },
 
-  word2Method: function(e) {
+  word2Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let wordIndex = 'word2';
+    this.setMarkList(index, wordIndex);
+
+    this.setData({
+      wordList: this.getMarkWordList()
+    });
 
   },
 
-  word3Method: function(e) {
+  word3Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let wordIndex = 'word3';
+    this.setMarkList(index, wordIndex);
+
+    this.setData({
+      wordList: this.getMarkWordList()
+    });
 
   },
 
-  word4Method: function(e) {
+  word4Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let wordIndex = 'word4';
+    this.setMarkList(index, wordIndex);
+
+    this.setData({
+      wordList: this.getMarkWordList()
+    });
 
   },
 
@@ -340,7 +399,7 @@ Page({
           name: name,
           wordShow: this.getWordShow(),
           writeShow: this.getWriteShow(),
-          wordList: this.getWordList(this.getResultArray()[0]),
+          wordList: this.getMarkWordList(),
           writeList: this.getWriteList(this.getResultArray()[1])
         })
       }
@@ -367,7 +426,7 @@ Page({
         name: name,
         wordShow: this.getWordShow(),
         writeShow: this.getWriteShow(),
-        wordList: this.getWordList(this.getResultArray()[0]),
+        wordList: this.getMarkWordList(),
         writeList: this.getWriteList(this.getResultArray()[1])
       })
     }
@@ -441,7 +500,7 @@ Page({
           name: name,
           wordShow: this.getWordShow(),
           writeShow: this.getWriteShow(),
-          wordList: this.getWordList(this.getResultArray()[0]),
+          wordList: this.getMarkWordList(),
           writeList: this.getWriteList(this.getResultArray()[1])
         })
       }
@@ -468,7 +527,7 @@ Page({
         name: name,
         wordShow: this.getWordShow(),
         writeShow: this.getWriteShow(),
-        wordList: this.getWordList(this.getResultArray()[0]),
+        wordList: this.getMarkWordList(),
         writeList: this.getWriteList(this.getResultArray()[1])
       })
     }
@@ -619,7 +678,7 @@ Page({
       term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1'],
-      wordList: this.getWordList(this.getResultArray()[0]),
+      wordList: this.getMarkWordList(),
       writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
@@ -635,7 +694,7 @@ Page({
       term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2'],
-      wordList: this.getWordList(this.getResultArray()[0]),
+      wordList: this.getMarkWordList(),
       writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
@@ -651,7 +710,7 @@ Page({
       term: this.data.term,
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3'],
-      wordList: this.getWordList(this.getResultArray()[0]),
+      wordList: this.getMarkWordList(),
       writeList: this.getWriteList(this.getResultArray()[1])
     })
   },
@@ -718,7 +777,7 @@ Page({
       classShow: true,
       wordShow: this.getWordShow(),
       writeShow: this.getWriteShow(),
-      wordList: this.getWordList(this.getResultArray()[0]),
+      wordList: this.getMarkWordList(),
       writeList: this.getWriteList(this.getResultArray()[1]),
       term: this.getResultArray()[2],
       name: this.getResultArray()[3],
