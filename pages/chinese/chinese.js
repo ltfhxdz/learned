@@ -218,7 +218,7 @@ Page({
   },
 
 
-  setMarkWriteList: function (index, writeIndex, writeList) {
+  setMarkWriteList: function(index, writeIndex, writeList) {
     let markString = wx.getStorageSync('markList');
     if (markString == "") {
       this.notMarkListAddWrite(index, writeIndex);
@@ -330,7 +330,7 @@ Page({
     return writeList;
   },
 
-  setRepeatMarkWriteList: function (index, writeIndex) {
+  setRepeatMarkWriteList: function(index, writeIndex) {
     let writeList = this.getWriteList(this.getResultArray()[1]);
     if (this.data.isrepeat) {
       this.setMarkWriteList(index, writeIndex, writeList);
@@ -353,25 +353,25 @@ Page({
     let writeIndex = 'write1';
     this.setRepeatMarkWriteList(index, writeIndex);
   },
-  write2Method: function (e) {
+  write2Method: function(e) {
     let index = e.currentTarget.dataset.index;
     let writeIndex = 'write2';
     this.setRepeatMarkWriteList(index, writeIndex);
 
   },
-  write3Method: function (e) {
+  write3Method: function(e) {
     let index = e.currentTarget.dataset.index;
     let writeIndex = 'write3';
     this.setRepeatMarkWriteList(index, writeIndex);
 
   },
-  write4Method: function (e) {
+  write4Method: function(e) {
     let index = e.currentTarget.dataset.index;
     let writeIndex = 'write4';
     this.setRepeatMarkWriteList(index, writeIndex);
 
   },
-  write5Method: function (e) {
+  write5Method: function(e) {
     let index = e.currentTarget.dataset.index;
     let writeIndex = 'write5';
     this.setRepeatMarkWriteList(index, writeIndex);
@@ -482,11 +482,21 @@ Page({
   },
 
   termCancel: function(e) {
+    let lesson = wx.getStorageSync('lesson');
+    let wordShow = false;
+    let writeShow = false;
+    let classShow = false;
+    if (lesson != '') {
+      wordShow = true;
+      writeShow = true;
+      classShow = true;
+    }
+
     this.setData({
       termShow: false,
-      wordShow: true,
-      writeShow: true,
-      classShow: true
+      wordShow: wordShow,
+      writeShow: writeShow,
+      classShow: classShow
     })
   },
 
@@ -666,7 +676,7 @@ Page({
 
         let writeList = this.getWriteList(this.getResultArray()[1]);
         this.setData({
-          isrepeat:true,
+          isrepeat: true,
           term: term,
           lesson: lesson,
           name: name,
@@ -846,6 +856,8 @@ Page({
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
     this.setData({
+      previousShow: true,
+      nextShow: true,
       lessonShow: false,
       classShow: true,
       wordShow: this.getWordShow(),
@@ -863,6 +875,8 @@ Page({
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
     this.setData({
+      previousShow: true,
+      nextShow: true,
       lessonShow: false,
       classShow: true,
       wordShow: this.getWordShow(),
@@ -880,6 +894,8 @@ Page({
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
     this.setData({
+      previousShow: true,
+      nextShow: true,
       lessonShow: false,
       classShow: true,
       wordShow: this.getWordShow(),
@@ -893,11 +909,21 @@ Page({
   },
 
   lessonCancel: function(e) {
+    let lesson = wx.getStorageSync('lesson');
+    let wordShow = false;
+    let writeShow = false;
+    let classShow = false;
+    if (lesson != '') {
+      wordShow = true;
+      writeShow = true;
+      classShow = true;
+    }
+
     this.setData({
       lessonShow: false,
-      wordShow: true,
-      writeShow: true,
-      classShow: true
+      wordShow: wordShow,
+      writeShow: writeShow,
+      classShow: classShow
     })
   },
 

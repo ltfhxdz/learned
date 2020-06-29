@@ -1,11 +1,11 @@
 <view class="item5">
-  <view class="item1">
+  <view class="item1" wx:if="{{previousShow}}">
     <text bindtap="previous">上一课</text>
   </view>
   <view class="item1">
     <text bindtap="select">选择课文</text>
   </view>
-  <view class="item1">
+  <view class="item1" wx:if="{{nextShow}}">
     <text bindtap="next">下一课</text>
   </view>
 </view>
