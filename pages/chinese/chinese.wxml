@@ -15,7 +15,7 @@
   <view class='modalBg' wx:if="{{termShow}}">
     <view class="modalDlg">
       <view class='title'>
-        <text  decode="{{true}}" >&nbsp;&nbsp;</text>
+        <text decode="{{true}}">&nbsp;&nbsp;</text>
       </view>
 
       <view wx:for="{{termList}}" wx:key="key">
@@ -37,7 +37,7 @@
   <view class='modalBg' wx:if="{{lessonShow}}">
     <view class="modalDlg">
       <view class='title'>
-        <text  decode="{{true}}" >&nbsp;&nbsp;</text>
+        <text decode="{{true}}">&nbsp;&nbsp;</text>
       </view>
 
       <view wx:for="{{lessonList}}" wx:key="key">
@@ -51,7 +51,6 @@
       <view>
         <button catchtap="lessonCancel">取消</button>
       </view>
-
     </view>
   </view>
 </view>
@@ -90,6 +89,30 @@
       <text class="item2" style='{{item.mark3==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write3Method" data-index="{{index}}">{{item.write3}}</text>
       <text class="item2" style='{{item.mark4==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write4Method" data-index="{{index}}">{{item.write4}}</text>
       <text class="item2" style='{{item.mark5==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write5Method" data-index="{{index}}">{{item.write5}}</text>
+    </view>
+  </view>
+</view>
+
+
+<view class="mask" style="{{markShow?'z-index: 1;opacity:0.7':''}}">
+  <view class='modalBg' wx:if="{{markShow}}">
+    <view class="modalDlg">
+      <view class='title'>
+        <text decode="{{true}}">标记表</text>
+      </view>
+
+      <view wx:for="{{markList}}" wx:key="key">
+        <view class="item">
+          <text class="item2" catchtap="mark1Method" data-index="{{index}}">{{item.mark1}}</text>
+          <text class="item2" catchtap="mark2Method" data-index="{{index}}">{{item.mark2}}</text>
+          <text class="item2" catchtap="mark3Method" data-index="{{index}}">{{item.mark3}}</text>
+          <text class="item2" catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
+        </view>
+        <view class="line"></view>
+      </view>
+      <view>
+        <button catchtap="markCancel">取消</button>
+      </view>
     </view>
   </view>
 </view>

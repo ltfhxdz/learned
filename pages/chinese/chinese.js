@@ -443,8 +443,85 @@ Page({
   },
 
   mark: function() {
+    let markString = wx.getStorageSync('markList');
+    if (markString == "") {
+      wx.showToast({
+        title: '点击词语，进行标记',
+        icon: 'none',
+        duration: 3000,
+        mask: true
+      })
+    } else {
+      let markSourceList = JSON.parse(markString);
+      let markSourceArray = [];
+
+      for (let x in markSourceList) {
+        let markArray = markSourceList[x].mark;
+        for (let y in markArray) {
+          markSourceArray.push(markArray[y]);
+        }
+      }
+
+      let markList = [];
+      let markMap = {};
+      let m = 0;
+      for (let x in markSourceArray) {
+        m = m + 1;
+        if (m == 1) {
+          markMap['mark1'] = markSourceArray[x];
+        } else if (m == 2) {
+          markMap['mark2'] = markSourceArray[x];
+        } else if (m == 3) {
+          markMap['mark3'] = markSourceArray[x];
+        } else if (m == 4) {
+          markMap['mark4'] = markSourceArray[x];
+          markList.push(markMap);
+          m = 0;
+          markMap = {};
+        }
+      }
+
+      if (markList.length * 4 < markSourceArray.length) {
+        if (typeof (markSourceArray[markList.length * 4]) != "undefined") {
+          markMap["mark1"] = markSourceArray[markList.length * 4];
+        }
+
+        if (typeof (markSourceArray[markList.length * 4 + 1]) != "undefined") {
+          markMap["mark2"] = markSourceArray[markList.length * 4 + 1];
+        }
+
+        if (typeof (markSourceArray[markList.length * 4 + 2]) != "undefined") {
+          markMap["mark3"] = markSourceArray[markList.length * 4 + 2];
+        }
+
+        if (typeof (markSourceArray[markList.length * 4 + 3]) != "undefined") {
+          markMap["mark4"] = markSourceArray[markList.length * 4 + 3];
+        }
+
+        markList.push(markMap);
+      }
+
+      this.setData({
+        markShow: true,
+        wordShow: false,
+        writeShow: false,
+        classShow: false,
+        markList: markList
+      })
+
+    }
 
   },
+
+  markCancel: function() {
+    this.setData({
+      markShow: false,
+      wordShow: true,
+      writeShow: true,
+      classShow: true,
+    })
+  },
+
   select: function(e) {
     let termList = [{
         "term1": "一年级上册",
