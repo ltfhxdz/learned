@@ -15,7 +15,7 @@
   <view class='modalBg' wx:if="{{termShow}}">
     <view class="modalDlg">
       <view class='title'>
-        <text>选择</text>
+        <text  decode="{{true}}" >&nbsp;&nbsp;</text>
       </view>
 
       <view wx:for="{{termList}}" wx:key="key">
@@ -37,7 +37,7 @@
   <view class='modalBg' wx:if="{{lessonShow}}">
     <view class="modalDlg">
       <view class='title'>
-        <text>选择</text>
+        <text  decode="{{true}}" >&nbsp;&nbsp;</text>
       </view>
 
       <view wx:for="{{lessonList}}" wx:key="key">

@@ -852,6 +852,9 @@ Page({
   },
 
   lesson1Method: function(e) {
+    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson1']) == "undefined") {
+      return;
+    }
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
@@ -871,6 +874,9 @@ Page({
   },
 
   lesson2Method: function(e) {
+    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson2']) == "undefined") {
+      return;
+    }
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson2']);
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
@@ -890,6 +896,10 @@ Page({
   },
 
   lesson3Method: function(e) {
+    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson3']) == "undefined") {
+      return;
+    }
+
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson3']);
     wx.setStorageSync('term', this.data.term);
     let writeList = this.getWriteList(this.getResultArray()[1]);
@@ -978,6 +988,8 @@ Page({
 
     let writeList = this.getWriteList(this.getResultArray()[1]);
     this.setData({
+      previousShow: true,
+      nextShow: true,
       classShow: true,
       wordShow: this.getWordShow(),
       writeShow: this.getWriteShow(),

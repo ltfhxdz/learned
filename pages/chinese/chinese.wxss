@@ -22,7 +22,7 @@
   font-size: 38rpx;
   width: 200rpx;
   text-align: center;
-  background-color: AliceBlue;
+  background:cyan;
 }
 .item21 {
   color: black;
@@ -117,7 +117,7 @@
   width: 98%;
   min-height: 200rpx;
   z-index: 9999;
-  background:whitesmoke;
+  background:white;
   border-radius: 10rpx;
   position: relative;
   overflow: hidden;
