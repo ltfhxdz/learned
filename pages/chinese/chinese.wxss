@@ -8,7 +8,7 @@
 .item1 {
   font-size: 35rpx;
   color: white;
-  background:rgb(77, 47, 160);
+  background: rgb(77, 47, 160);
   width: 200rpx;
   text-align: center;
   border-top-left-radius: 30rpx;
@@ -22,8 +22,9 @@
   font-size: 38rpx;
   width: 200rpx;
   text-align: center;
-  background:cyan;
+  background: cyan;
 }
+
 .item21 {
   color: black;
   font-size: 38rpx;
@@ -36,7 +37,7 @@
   margin-top: 20rpx;
   margin-left: 8rpx;
   width: 98%;
-  background:cyan;
+  background: cyan;
 }
 
 .item5 {
@@ -64,14 +65,28 @@
   text-align: center;
   margin-left: 150rpx;
   color: white;
-  background:rgb(77, 47, 160);
+  background: rgb(77, 47, 160);
   border-top-left-radius: 30rpx;
   border-top-right-radius: 30rpx;
   border-bottom-right-radius: 30rpx;
   border-bottom-left-radius: 30rpx;
 }
+
 .item10 {
   margin-left: 300rpx;
+}
+
+.item11 {
+  font-size: 35rpx;
+  text-align: center;
+  margin-left: 300rpx;
+  width: 120rpx;
+  color: white;
+  background: rgb(77, 47, 160);
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
 }
 
 .title {
@@ -81,7 +96,6 @@
   font-size: 18px;
   color: black;
 }
-
 
 .line {
   margin-top: 10rpx;
@@ -117,7 +131,42 @@
   width: 98%;
   min-height: 200rpx;
   z-index: 9999;
-  background:white;
+  background: white;
+  border-radius: 10rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.mask2 {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #000;
+  z-index: -99999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.modalBg2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+
+.modalDlg2 {
+  width: 98%;
+  min-height: 200rpx;
+  z-index: 9999;
+  background: white;
   border-radius: 10rpx;
   position: relative;
   overflow: hidden;
