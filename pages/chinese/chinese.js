@@ -598,8 +598,9 @@ Page({
       }
 
       markList.push(markMap);
-      return markList;
     }
+
+    return markList;
   },
 
   mark: function() {
@@ -622,12 +623,74 @@ Page({
     }
   },
 
+  getDeleteMarkList:function(){
+    if (this.data.markSelectArray.length == 0){
+      return;
+    }
+    let markList = this.getMarkList();
+    let deleteMarkList = [];
+    for (let x in markList) {
+      if (this.data.markSelectArray[x]['select1'] == 1) {
+        if (typeof (markList[x].mark1) != "undefined") {
+          deleteMarkList.push(markList[x].mark1);
+        }
+      }
+      if (this.data.markSelectArray[x]['select2'] == 1) {
+        if (typeof (markList[x].mark2) != "undefined") {
+          deleteMarkList.push(markList[x].mark2);
+        }
+      }
+      if (this.data.markSelectArray[x]['select3'] == 1) {
+        if (typeof (markList[x].mark3) != "undefined") {
+          deleteMarkList.push(markList[x].mark3);
+        }
+      }
+      if (this.data.markSelectArray[x]['select4'] == 1) {
+        if (typeof (markList[x].mark4) != "undefined") {
+          deleteMarkList.push(markList[x].mark4);
+        }
+      }
+    }
+
+    return deleteMarkList;
+  },
+
   markCancel: function() {
+    let deleteMarkList = this.getDeleteMarkList();
+    let markString = wx.getStorageSync('markList');
+    let markList = JSON.parse(markString);
+    for (let x in deleteMarkList){
+      for (let y in markList) {
+        let markArray = markList[y].mark;
+        for (let z in markArray) {
+          if (deleteMarkList[x] == markArray[z]) {
+            markArray.splice(z, 1);
+          }
+        }
+      }
+    }
+
+    let newMarkList = [];
+    for (let x in markList){
+      if (markList[x].mark.length>0){
+        newMarkList.push(markList[x]);
+      }
+    }
+    if (newMarkList.length == 0){
+      wx.removeStorageSync('markList');
+    }else{
+      wx.setStorageSync('markList', JSON.stringify(newMarkList));
+    }
+    //清空标记选择数组
+    this.data.markSelectArray = [];
+    let writeList = this.getWriteList(this.getResultArray()[1]);
     this.setData({
       markShow: false,
       wordShow: true,
       writeShow: true,
       classShow: true,
+      wordList: this.getMarkWordList(),
+      writeList: this.getMarkWriteList(writeList)
     })
   },
 

@@ -79,8 +79,8 @@
 .item11 {
   font-size: 35rpx;
   text-align: center;
-  margin-left: 300rpx;
-  width: 120rpx;
+  margin-left: 260rpx;
+  width: 200rpx;
   color: white;
   background: rgb(77, 47, 160);
   border-top-left-radius: 30rpx;

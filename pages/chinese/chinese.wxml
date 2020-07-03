@@ -112,7 +112,7 @@
       </view>
     </view>
     <view class="item11">
-      <text catchtap="markCancel">取消</text>
+      <text catchtap="markCancel">取消标记</text>
     </view>
   </view>
 </view>
