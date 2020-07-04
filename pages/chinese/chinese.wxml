@@ -69,10 +69,10 @@
 
   <view wx:for="{{wordList}}" wx:key="key">
     <view class="item">
-      <text class="item2" style='{{item.mark1==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="word1Method" data-index="{{index}}">{{item.word1}}</text>
-      <text class="item2" style='{{item.mark2==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="word2Method" data-index="{{index}}">{{item.word2}}</text>
-      <text class="item2" style='{{item.mark3==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="word3Method" data-index="{{index}}">{{item.word3}}</text>
-      <text class="item2" style='{{item.mark4==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="word4Method" data-index="{{index}}">{{item.word4}}</text>
+      <text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="word1Method" data-index="{{index}}">{{item.word1}}</text>
+      <text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="word2Method" data-index="{{index}}">{{item.word2}}</text>
+      <text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="word3Method" data-index="{{index}}">{{item.word3}}</text>
+      <text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="word4Method" data-index="{{index}}">{{item.word4}}</text>
     </view>
   </view>
 </view>
@@ -85,11 +85,11 @@
 
   <view wx:for="{{writeList}}" wx:key="key">
     <view class="item">
-      <text class="item2" style='{{item.mark1==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write1Method" data-index="{{index}}">{{item.write1}}</text>
-      <text class="item2" style='{{item.mark2==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write2Method" data-index="{{index}}">{{item.write2}}</text>
-      <text class="item2" style='{{item.mark3==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write3Method" data-index="{{index}}">{{item.write3}}</text>
-      <text class="item2" style='{{item.mark4==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write4Method" data-index="{{index}}">{{item.write4}}</text>
-      <text class="item2" style='{{item.mark5==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="write5Method" data-index="{{index}}">{{item.write5}}</text>
+      <text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="write1Method" data-index="{{index}}">{{item.write1}}</text>
+      <text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="write2Method" data-index="{{index}}">{{item.write2}}</text>
+      <text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="write3Method" data-index="{{index}}">{{item.write3}}</text>
+      <text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="write4Method" data-index="{{index}}">{{item.write4}}</text>
+      <text class="item2" style='{{item.mark5==index?"background:red;":"background:AliceBlue"}}' catchtap="write5Method" data-index="{{index}}">{{item.write5}}</text>
     </view>
   </view>
 </view>
@@ -105,10 +105,10 @@
 
     <view scroll-y="true" wx:for="{{markList}}" wx:key="key">
       <view class="item">
-        <text class="item2" style='{{item.select1==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="mark1Method" data-index="{{index}}">{{item.mark1}}</text>
-        <text class="item2" style='{{item.select2==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="mark2Method" data-index="{{index}}">{{item.mark2}}</text>
-        <text class="item2" style='{{item.select3==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="mark3Method" data-index="{{index}}">{{item.mark3}}</text>
-        <text class="item2" style='{{item.select4==index?"background-color:red;":"background-color:AliceBlue"}}' catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
+        <text class="item2" style='{{item.select1==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark1Method" data-index="{{index}}">{{item.mark1}}</text>
+        <text class="item2" style='{{item.select2==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark2Method" data-index="{{index}}">{{item.mark2}}</text>
+        <text class="item2" style='{{item.select3==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark3Method" data-index="{{index}}">{{item.mark3}}</text>
+        <text class="item2" style='{{item.select4==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
       </view>
     </view>
     <view class="item11">
