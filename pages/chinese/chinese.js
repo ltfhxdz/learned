@@ -655,43 +655,63 @@ Page({
     return deleteMarkList;
   },
 
-  markCancel: function() {
-    let deleteMarkList = this.getDeleteMarkList();
-    let markString = wx.getStorageSync('markList');
-    let markList = JSON.parse(markString);
-    for (let x in deleteMarkList){
-      for (let y in markList) {
-        let markArray = markList[y].mark;
-        for (let z in markArray) {
-          if (deleteMarkList[x] == markArray[z]) {
-            markArray.splice(z, 1);
-          }
-        }
-      }
-    }
-
-    let newMarkList = [];
-    for (let x in markList){
-      if (markList[x].mark.length>0){
-        newMarkList.push(markList[x]);
-      }
-    }
-    if (newMarkList.length == 0){
-      wx.removeStorageSync('markList');
-    }else{
-      wx.setStorageSync('markList', JSON.stringify(newMarkList));
-    }
-    //清空标记选择数组
-    this.data.markSelectArray = [];
-    let writeList = this.getWriteList(this.getResultArray()[1]);
+  markCancel: function () {
     this.setData({
       markShow: false,
       wordShow: true,
-      writeShow: true,
       classShow: true,
-      wordList: this.getMarkWordList(),
-      writeList: this.getMarkWriteList(writeList)
+      wordList: this.getMarkWordList()
     })
+  },
+
+
+  removeMark: function() {
+    if (this.data.markSelectArray.length == 0) {
+      wx.showToast({
+        title: '点击词语，进行删除',
+        icon: 'none',
+        duration: 3000,
+        mask: true
+      })
+    } else {
+      let deleteMarkList = this.getDeleteMarkList();
+      let markString = wx.getStorageSync('markList');
+      let markList = JSON.parse(markString);
+      for (let x in deleteMarkList) {
+        for (let y in markList) {
+          let markArray = markList[y].mark;
+          for (let z in markArray) {
+            if (deleteMarkList[x] == markArray[z]) {
+              markArray.splice(z, 1);
+            }
+          }
+        }
+      }
+
+      let newMarkList = [];
+      for (let x in markList) {
+        if (markList[x].mark.length > 0) {
+          newMarkList.push(markList[x]);
+        }
+      }
+      if (newMarkList.length == 0) {
+        wx.removeStorageSync('markList');
+      } else {
+        wx.setStorageSync('markList', JSON.stringify(newMarkList));
+      }
+      //清空标记选择数组
+      this.data.markSelectArray = [];
+      let writeList = this.getWriteList(this.getResultArray()[1]);
+      this.setData({
+        markShow: false,
+        wordShow: true,
+        writeShow: true,
+        classShow: true,
+        wordList: this.getMarkWordList(),
+        writeList: this.getMarkWriteList(writeList)
+      })
+    }
+ 
   },
 
   select: function(e) {
