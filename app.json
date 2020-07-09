@@ -23,14 +23,14 @@
       },
       {
         "pagePath": "pages/english/english",
-        "iconPath": "pages/images/hehua.jpg",
-        "selectedIconPath": "pages/images/hehua.jpg",
+        "iconPath": "pages/images/meihua.jpg",
+        "selectedIconPath": "pages/images/meihua.jpg",
         "text": "英语"
       },
       {
         "pagePath": "pages/learned/learned",
-        "iconPath": "pages/images/meihua.jpg",
-        "selectedIconPath": "pages/images/meihua.jpg",
+        "iconPath": "pages/images/zhenzhumei.png",
+        "selectedIconPath": "pages/images/zhenzhumei.png",
         "text": "查询"
       }
     ]

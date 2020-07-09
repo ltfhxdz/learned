@@ -1,3 +1,8 @@
+.td {
+  display: flex;
+  justify-content: center;
+}
+
 .item {
   display: flex;
   flex-direction: row;
@@ -6,7 +11,7 @@
 }
 
 .item1 {
-  font-size: 35rpx;
+  font-size: 40rpx;
   color: white;
   background: rgb(77, 47, 160);
   width: 200rpx;
@@ -49,7 +54,7 @@
 
 
 .item7 {
-  font-size: 35rpx;
+  font-size: 40rpx;
   width: 100rpx;
   text-align: center;
   margin-left: 150rpx;
@@ -61,8 +66,8 @@
 }
 
 .item9 {
-  font-size: 35rpx;
-  width: 100rpx;
+  font-size: 40rpx;
+  width: 120rpx;
   text-align: center;
   margin-left: 150rpx;
   color: white;
@@ -78,9 +83,8 @@
 }
 
 .item11 {
-  font-size: 35rpx;
+  font-size: 40rpx;
   text-align: center;
-  margin-left: 260rpx;
   margin-top: 10rpx;
   margin-bottom: 15rpx;
   width: 200rpx;
@@ -94,7 +98,7 @@
 
 
 .item12 {
-  font-size: 35rpx;
+  font-size: 40rpx;
   width: 180rpx;
   text-align: center;
   margin-left: 100rpx;

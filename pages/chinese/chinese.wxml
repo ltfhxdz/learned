@@ -25,9 +25,12 @@
       </view>
       <view class="line"></view>
     </view>
-    <view class="item11">
-      <text catchtap="termCancel">取消</text>
+    <view class="td">
+      <view class="item11">
+        <text catchtap="termCancel">取消</text>
+      </view>
     </view>
+
   </view>
 </view>
 
@@ -49,8 +52,10 @@
       <view class="line"></view>
     </view>
 
-    <view class="item11">
-      <text catchtap="lessonCancel">取消</text>
+    <view class="td">
+      <view class="item11">
+        <text catchtap="lessonCancel">取消</text>
+      </view>
     </view>
   </view>
 </view>
@@ -73,8 +78,11 @@
         <text class="item2" style='{{item.select4==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
       </view>
     </view>
-    <view class="item11">
-      <text catchtap="markCancel">取消</text>
+
+    <view class="td">
+      <view class="item11">
+        <text catchtap="markCancel">取消</text>
+      </view>
     </view>
   </view>
 </view>
@@ -104,7 +112,7 @@
   <view class='title'>
     <text class="item10">写字表</text>
     <text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
-    <text class="item7"  wx:if="{{!wordShow}}"></text>
+    <text class="item7" wx:if="{{!wordShow}}"></text>
   </view>
 
   <view wx:for="{{writeList}}" wx:key="key">

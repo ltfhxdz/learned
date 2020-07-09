@@ -61,7 +61,7 @@
 }
 
 .item1 {
-  font-size: 35rpx;
+  font-size: 40rpx;
   color: white;
   background: rgb(77, 47, 160);
   text-align: center;

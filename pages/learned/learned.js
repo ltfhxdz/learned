@@ -1,6 +1,6 @@
 var oneWordJson = require('/../data/word.js');
 // var multWordJson = require('/../data/words.js');
-var englishJson = require('/../data/english.js');
+var englishJson = require('/../data/english.js'); 
 
 Page({
 
@@ -37,9 +37,10 @@ Page({
     })
   },
 
-  query: function(e) {
-    var array = [];
 
+  query: function(e) {
+    // var startTime = (new Date()).valueOf();
+    var array = [];
     var search = this.data.search;
     if (search != null) {
       search = search.replace(/(^\s*)|(\s*$)/g, "");
@@ -73,12 +74,25 @@ Page({
           // console.log('x=' + wordList[x].type + ',' + wordList[x].word);
           var word = wordList[x].word;
           for (let y in word) {
-            if (search == word[y]) {
-              flag = '1';
-              var object1 = new Object();
-              object1.term = "在<<" + term + " , " + wordList[x].type + ">>学过";
-              array[count++] = object1;
-              break;
+            let wordString = word[y].toLowerCase();
+            let wordArray = wordString.split(" ");
+            for(let z in wordArray){
+              if (search == wordArray[z]) {
+                let learnedString = "在<<" + term + " , " + wordList[x].type + ">>学过";
+                let learnedFlag = 0;
+                for(let a in array){
+                  if (array[a].term == learnedString){
+                    learnedFlag = 1;
+                  }
+                }
+                if (learnedFlag == 0){
+                  flag = '1';
+                  let object1 = new Object();
+                  object1.term = learnedString;
+                  array[count++] = object1;
+                  break;
+                }
+              }
             }
           }
         }
@@ -86,6 +100,9 @@ Page({
       if (array.length > 1) {
         flagEnglish = true;
       }
+
+      // var endTime = (new Date()).valueOf();
+
       this.setData({
         flagEnglish: flagEnglish,
         array: array
