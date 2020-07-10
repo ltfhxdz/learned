@@ -112,7 +112,7 @@
   <view class='title'>
     <text class="item10">写字表</text>
     <text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
-    <text class="item7" wx:if="{{!wordShow}}"></text>
+    <text class="item9"  wx:if="{{!wordShow}}" bindtap="mark">标记</text>
   </view>
 
   <view wx:for="{{writeList}}" wx:key="key">

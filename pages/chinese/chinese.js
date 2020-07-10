@@ -655,10 +655,11 @@ Page({
     return deleteMarkList;
   },
 
-  markCancel: function () {
+  markCancel: function (e) {
     this.setData({
       markShow: false,
-      wordShow: true,
+      wordShow: this.getWordShow(),
+      writeShow: this.getWriteShow(),
       classShow: true,
       wordList: this.getMarkWordList()
     })
@@ -704,8 +705,8 @@ Page({
       let writeList = this.getWriteList(this.getResultArray()[1]);
       this.setData({
         markShow: false,
-        wordShow: true,
-        writeShow: true,
+        wordShow: this.getWordShow(),
+        writeShow: this.getWriteShow(),
         classShow: true,
         wordList: this.getMarkWordList(),
         writeList: this.getMarkWriteList(writeList)
