@@ -29,8 +29,8 @@
       },
       {
         "pagePath": "pages/learned/learned",
-        "iconPath": "pages/images/zhenzhumei.png",
-        "selectedIconPath": "pages/images/zhenzhumei.png",
+        "iconPath": "pages/images/qiuying.png",
+        "selectedIconPath": "pages/images/qiuying.png",
         "text": "查询"
       }
     ]
