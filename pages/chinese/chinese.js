@@ -941,6 +941,7 @@ Page({
             name = wordList[0].name;
             lesson = wordList[0].type;
             wx.setStorageSync('lesson', lesson);
+            break;
           }
         }
 
