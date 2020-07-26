@@ -1,6 +1,6 @@
 var oneWordJson = require('/../data/word.js');
 // var multWordJson = require('/../data/words.js');
-var englishJson = require('/../data/english.js'); 
+var englishJson = require('/../data/english.js');
 
 Page({
 
@@ -15,10 +15,10 @@ Page({
     array: []
   },
 
-  searchInput: function(e) {
-    if (e.detail.value.length == 0){
+  searchInput: function (e) {
+    if (e.detail.value.length == 0) {
       this.clean();
-    }else{
+    } else {
       this.setData({
         condition: true,
         search: e.detail.value
@@ -27,7 +27,7 @@ Page({
 
   },
 
-  clean: function() {
+  clean: function () {
     this.data.search = '';
     this.setData({
       condition: false,
@@ -38,7 +38,7 @@ Page({
   },
 
 
-  query: function(e) {
+  query: function (e) {
     // var startTime = (new Date()).valueOf();
     var array = [];
     var search = this.data.search;
@@ -76,16 +76,16 @@ Page({
           for (let y in word) {
             let wordString = word[y].toLowerCase();
             let wordArray = wordString.split(" ");
-            for(let z in wordArray){
+            for (let z in wordArray) {
               if (search == wordArray[z]) {
                 let learnedString = "在<<" + term + " , " + wordList[x].type + ">>学过";
                 let learnedFlag = 0;
-                for(let a in array){
-                  if (array[a].term == learnedString){
+                for (let a in array) {
+                  if (array[a].term == learnedString) {
                     learnedFlag = 1;
                   }
                 }
-                if (learnedFlag == 0){
+                if (learnedFlag == 0) {
                   flag = '1';
                   let object1 = new Object();
                   object1.term = learnedString;
@@ -224,12 +224,12 @@ Page({
   },
 
 
-  mail: function() {
+  mail: function () {
     wx.showModal({
       title: '联系',
       content: '邮箱：44526143@qq.com',
       showCancel: false,
-      success: function(res) {
+      success: function (res) {
         if (res.confirm) {
           console.log('用户点击确定')
         } else if (res.cancel) {
@@ -244,7 +244,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     // var array = this.iniData();
     // console.log("xyz array:" + array);
     // this.setData({
@@ -255,49 +255,55 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
-   * 用户点击右上角分享
+   * 允许用户点击右上角分享给朋友
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
+  },
+  /**
+   * 允许用户右上角分享到朋友圈
+   */
+  onShareTimeline: function () {
+    title: '听写小助手：字词是基础，助力孩子进步。'
   }
 })

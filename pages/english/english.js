@@ -12,15 +12,15 @@ Page({
     markSelectArray: []
   },
 
-  setMarkSelectArray: function(index, selectIndex) {
+  setMarkSelectArray: function (index, selectIndex) {
     let markList = this.getMarkList();
     if (this.data.markSelectArray.length == 0) {
       for (let x in markList) {
         let markSelectMap = {};
-        if (typeof(markList[x].mark1) != "undefined") {
+        if (typeof (markList[x].mark1) != "undefined") {
           markSelectMap['select1'] = 0
         }
-        if (typeof(markList[x].mark2) != "undefined") {
+        if (typeof (markList[x].mark2) != "undefined") {
           markSelectMap['select2'] = 0
         }
         this.data.markSelectArray.push(markSelectMap);
@@ -38,7 +38,7 @@ Page({
     }
   },
 
-  getMarkSelectArray: function() {
+  getMarkSelectArray: function () {
     let markList = this.getMarkList();
     for (let x in markList) {
       if (this.data.markSelectArray[x]['select1'] == 1) {
@@ -57,7 +57,7 @@ Page({
     return markList;
   },
 
-  mark1Method: function(e) {
+  mark1Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let selectIndex = 'select1';
     this.setMarkSelectArray(index, selectIndex);
@@ -70,7 +70,7 @@ Page({
     })
   },
 
-  mark2Method: function(e) {
+  mark2Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let selectIndex = 'select2';
     this.setMarkSelectArray(index, selectIndex);
@@ -83,7 +83,7 @@ Page({
     })
   },
 
-  notMarkListAddWord: function(index, wordIndex) {
+  notMarkListAddWord: function (index, wordIndex) {
     let wordList = this.getWordList(this.getResultArray()[0]);
 
     for (let x in wordList) {
@@ -107,7 +107,7 @@ Page({
     }
   },
 
-  setMarkWordList: function(index, wordIndex) {
+  setMarkWordList: function (index, wordIndex) {
     let markString = wx.getStorageSync('englishMarkList');
     if (markString == "") {
       this.notMarkListAddWord(index, wordIndex);
@@ -186,7 +186,7 @@ Page({
     }
   },
 
-  getMarkWordList: function() {
+  getMarkWordList: function () {
     let wordList = this.getWordList(this.getResultArray()[0]);
     let markString = wx.getStorageSync('englishMarkList');
     let markList = [];
@@ -215,7 +215,7 @@ Page({
     return wordList;
   },
 
-  word1Method: function(e) {
+  word1Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let wordIndex = 'word1';
     this.setMarkWordList(index, wordIndex);
@@ -225,7 +225,7 @@ Page({
     });
   },
 
-  word2Method: function(e) {
+  word2Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let wordIndex = 'word2';
     this.setMarkWordList(index, wordIndex);
@@ -236,7 +236,7 @@ Page({
 
   },
 
-  getMarkList: function() {
+  getMarkList: function () {
     let markString = wx.getStorageSync('englishMarkList');
     let markSourceList = JSON.parse(markString);
     let markSourceArray = [];
@@ -260,15 +260,15 @@ Page({
         markList.push(markMap);
         m = 0;
         markMap = {};
-      } 
+      }
     }
 
     if (markList.length * 2 < markSourceArray.length) {
-      if (typeof(markSourceArray[markList.length * 2]) != "undefined") {
+      if (typeof (markSourceArray[markList.length * 2]) != "undefined") {
         markMap["mark1"] = markSourceArray[markList.length * 2];
       }
 
-      if (typeof(markSourceArray[markList.length * 2 + 1]) != "undefined") {
+      if (typeof (markSourceArray[markList.length * 2 + 1]) != "undefined") {
         markMap["mark2"] = markSourceArray[markList.length * 2 + 1];
       }
 
@@ -277,7 +277,7 @@ Page({
     return markList;
   },
 
-  mark: function() {
+  mark: function () {
     let markString = wx.getStorageSync('englishMarkList');
     if (markString == "") {
       wx.showToast({
@@ -296,7 +296,7 @@ Page({
     }
   },
 
-  getDeleteMarkList: function() {
+  getDeleteMarkList: function () {
     if (this.data.markSelectArray.length == 0) {
       return;
     }
@@ -304,12 +304,12 @@ Page({
     let deleteMarkList = [];
     for (let x in markList) {
       if (this.data.markSelectArray[x]['select1'] == 1) {
-        if (typeof(markList[x].mark1) != "undefined") {
+        if (typeof (markList[x].mark1) != "undefined") {
           deleteMarkList.push(markList[x].mark1);
         }
       }
       if (this.data.markSelectArray[x]['select2'] == 1) {
-        if (typeof(markList[x].mark2) != "undefined") {
+        if (typeof (markList[x].mark2) != "undefined") {
           deleteMarkList.push(markList[x].mark2);
         }
       }
@@ -318,7 +318,7 @@ Page({
     return deleteMarkList;
   },
 
-  markCancel:function(){
+  markCancel: function () {
     this.setData({
       markShow: false,
       wordShow: true,
@@ -327,8 +327,8 @@ Page({
     })
   },
 
-  removeMark: function() {
-    if (this.data.markSelectArray.length == 0){
+  removeMark: function () {
+    if (this.data.markSelectArray.length == 0) {
       wx.showToast({
         title: '点击单词，进行删除',
         icon: 'none',
@@ -373,7 +373,7 @@ Page({
     }
   },
 
-  select: function(e) {
+  select: function (e) {
     let termList = [{
         "term1": "一年级上册",
         "term2": "一年级下册"
@@ -408,7 +408,7 @@ Page({
     })
   },
 
-  termCancel: function(e) {
+  termCancel: function (e) {
     let lesson = wx.getStorageSync('englishLesson');
     let wordShow = false;
     let classShow = false;
@@ -424,7 +424,7 @@ Page({
     })
   },
 
-  previous: function(e) {
+  previous: function (e) {
     let term = wx.getStorageSync('englishTerm');
     let lesson = wx.getStorageSync('englishLesson');
     let lessonIndex = 0;
@@ -502,7 +502,7 @@ Page({
     }
   },
 
-  next: function(e) {
+  next: function (e) {
     let term = wx.getStorageSync('englishTerm');
     let lesson = wx.getStorageSync('englishLesson');
     let lessonIndex = 0;
@@ -581,7 +581,7 @@ Page({
 
   },
 
-  getWordShow: function() {
+  getWordShow: function () {
 
     let wordList = this.getWordList(this.getResultArray()[0]);
     let wordShow = false;
@@ -591,7 +591,7 @@ Page({
     return wordShow;
   },
 
-  term1Method: function(e) {
+  term1Method: function (e) {
     let json = englishJson.englishJson;
     let typeArray = [];
     for (var k in json) {
@@ -639,7 +639,7 @@ Page({
     })
   },
 
-  term2Method: function(e) {
+  term2Method: function (e) {
     let json = englishJson.englishJson;
     let typeArray = [];
     for (var k in json) {
@@ -685,8 +685,8 @@ Page({
     })
   },
 
-  lesson1Method: function(e) {
-    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson1']) == "undefined") {
+  lesson1Method: function (e) {
+    if (typeof (this.data.lessonList[e.currentTarget.dataset.index]['lesson1']) == "undefined") {
       return;
     }
     wx.setStorageSync('englishLesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
@@ -703,8 +703,8 @@ Page({
     })
   },
 
-  lesson2Method: function(e) {
-    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson2']) == "undefined") {
+  lesson2Method: function (e) {
+    if (typeof (this.data.lessonList[e.currentTarget.dataset.index]['lesson2']) == "undefined") {
       return;
     }
     wx.setStorageSync('englishLesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson2']);
@@ -721,8 +721,8 @@ Page({
     })
   },
 
-  lesson3Method: function(e) {
-    if (typeof(this.data.lessonList[e.currentTarget.dataset.index]['lesson3']) == "undefined") {
+  lesson3Method: function (e) {
+    if (typeof (this.data.lessonList[e.currentTarget.dataset.index]['lesson3']) == "undefined") {
       return;
     }
 
@@ -740,7 +740,7 @@ Page({
     })
   },
 
-  lessonCancel: function(e) {
+  lessonCancel: function (e) {
     let lesson = wx.getStorageSync('englishLesson');
     let wordShow = false;
     let classShow = false;
@@ -756,7 +756,7 @@ Page({
     })
   },
 
-  getResultArray: function() {
+  getResultArray: function () {
     let term = wx.getStorageSync('englishTerm');
     let lesson = wx.getStorageSync('englishLesson');
 
@@ -786,7 +786,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let term = wx.getStorageSync('englishTerm');
     let lesson = wx.getStorageSync('englishLesson');
     if (term == '' || lesson == '') {
@@ -805,7 +805,7 @@ Page({
   },
 
 
-  getWordList: function(wordArray) {
+  getWordList: function (wordArray) {
     let wordList = [];
     let wordItem = {};
     let n = 0;
@@ -818,15 +818,15 @@ Page({
         wordItem['word2'] = wordArray[x];
         wordList.push(wordItem);
         wordItem = {};
-      } 
+      }
     }
 
     if (wordList.length * 2 < wordArray.length) {
-      if (typeof(wordArray[wordList.length * 2]) != "undefined") {
+      if (typeof (wordArray[wordList.length * 2]) != "undefined") {
         wordItem["word1"] = wordArray[wordList.length * 2];
       }
 
-      if (typeof(wordArray[wordList.length * 2 + 1]) != "undefined") {
+      if (typeof (wordArray[wordList.length * 2 + 1]) != "undefined") {
         wordItem["word2"] = wordArray[wordList.length * 2 + 1];
       }
 
@@ -840,49 +840,56 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
 
+  /**
+   * 允许用户点击右上角分享给朋友
+   */
+  onShareAppMessage: function () {
+
+  },
+  /**
+   * 允许用户右上角分享到朋友圈
+   */
+  onShareTimeline: function () {
+    title: '听写小助手：字词是基础，助力孩子进步。'
   }
 })
