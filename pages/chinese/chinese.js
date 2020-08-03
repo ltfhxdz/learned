@@ -8,7 +8,7 @@ Page({
   data: {
     upArray: ["一年级上册", "二年级上册", "三年级上册", "四年级上册", "五年级上册", "六年级上册"],
     downArray: ["一年级下册", "二年级下册", "三年级下册", "四年级下册", "五年级下册", "六年级下册"],
-    isrepeat: true,
+    isrepeat: false,
     isMark: true,
     markSelectArray: []
   },
@@ -838,8 +838,11 @@ Page({
         }
 
         let writeList = this.getWriteList(this.getResultArray()[1]);
+        writeList = this.getNoRepeatWriteList(writeList);
+
+
         this.setData({
-          isrepeat: true,
+          isrepeat: false,
           term: term,
           lesson: lesson,
           name: name,
@@ -867,8 +870,10 @@ Page({
       }
 
       let writeList = this.getWriteList(this.getResultArray()[1]);
+      writeList = this.getNoRepeatWriteList(writeList);
+
       this.setData({
-        isrepeat: true,
+        isrepeat: false,
         term: term,
         lesson: lesson,
         name: name,
@@ -942,8 +947,11 @@ Page({
         }
 
         let writeList = this.getWriteList(this.getResultArray()[1]);
+        writeList = this.getNoRepeatWriteList(writeList);
+
+
         this.setData({
-          isrepeat: true,
+          isrepeat: false,
           term: term,
           lesson: lesson,
           name: name,
@@ -971,8 +979,10 @@ Page({
       }
 
       let writeList = this.getWriteList(this.getResultArray()[1]);
+      writeList = this.getNoRepeatWriteList(writeList);
+
       this.setData({
-        isrepeat: true,
+        isrepeat: false,
         term: term,
         lesson: lesson,
         name: name,
@@ -1250,6 +1260,8 @@ Page({
     }
 
     let writeList = this.getWriteList(this.getResultArray()[1]);
+    writeList = this.getNoRepeatWriteList(writeList);
+
     this.setData({
       previousShow: true,
       nextShow: true,
