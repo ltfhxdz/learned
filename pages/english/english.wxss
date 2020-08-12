@@ -149,3 +149,41 @@
   position: relative;
   overflow: hidden;
 }
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+}
+ 
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  color: black;
+}
+ 
+.flex-item {
+  padding: 25rpx;
+  position: relative;
+}
+.item-left {
+  flex: 1; /* 重要 */
+  align-items:center;
+}
+
+.item-right {
+ position: relative;
+ align-items:center;
+}
+
+.item13 {
+  font-size: 40rpx;
+  width: 200rpx;
+  text-align: center;
+  margin-left: 480rpx;
+  color: white;
+  background: rgb(77, 47, 160);
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+  border-bottom-right-radius: 30rpx;
+  border-bottom-left-radius: 30rpx;
+}

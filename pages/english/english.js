@@ -9,11 +9,179 @@ Page({
     upArray: ["一年级上册", "二年级上册", "三年级上册", "四年级上册", "五年级上册", "六年级上册"],
     downArray: ["一年级下册", "二年级下册", "三年级下册", "四年级下册", "五年级下册", "六年级下册"],
     isMark: true,
-    markSelectArray: []
+    markSelectArray: [],
+    historySelectArray: []
   },
 
+
+  history: function () {
+    let markString = wx.getStorageSync('englishHistoryList');
+    if (markString == "") {
+      wx.showToast({
+        title: '点击词语，进行标记',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+    } else {
+      this.setData({
+        historyShow: true,
+        wordShow: false,
+        writeShow: false,
+        classShow: false,
+        historyList: this.getMarkList('englishHistoryList')
+      })
+    }
+  },
+
+
+  removeHistory: function () {
+    if (this.data.historySelectArray.length == 0) {
+      wx.showToast({
+        title: '点击词语，进行删除',
+        icon: 'none',
+        duration: 2000,
+        mask: true
+      })
+    } else {
+      this.removeSub('englishHistoryList');
+
+      //清空标记选择数组
+      this.data.historySelectArray = [];
+
+      this.setData({
+        historyShow: false,
+        wordShow: this.getWordShow(),
+        classShow: true,
+        wordList: this.getMarkWordList()
+      })
+    }
+  },
+
+  historyCancel: function () {
+    this.setData({
+      historyShow: false,
+      wordShow: this.getWordShow(),
+      classShow: true,
+      wordList: this.getMarkWordList()
+    })
+  },
+
+  history1Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let selectIndex = 'select1';
+    this.setHistorySelectArray(index, selectIndex);
+
+    this.setData({
+      historyShow: true,
+      wordShow: false,
+      writeShow: false,
+      classShow: false,
+      historyList: this.getHistorySelectArray()
+    })
+  },
+
+  history2Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let selectIndex = 'select2';
+    this.setHistorySelectArray(index, selectIndex);
+
+    this.setData({
+      historyShow: true,
+      wordShow: false,
+      writeShow: false,
+      classShow: false,
+      historyList: this.getHistorySelectArray()
+    })
+  },
+
+  history3Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let selectIndex = 'select3';
+    this.setHistorySelectArray(index, selectIndex);
+
+    this.setData({
+      historyShow: true,
+      wordShow: false,
+      writeShow: false,
+      classShow: false,
+      historyList: this.getHistorySelectArray()
+    })
+  },
+
+  history4Method: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let selectIndex = 'select4';
+    this.setHistorySelectArray(index, selectIndex);
+
+    this.setData({
+      historyShow: true,
+      wordShow: false,
+      writeShow: false,
+      classShow: false,
+      historyList: this.getHistorySelectArray()
+    })
+  },
+
+
+  setHistorySelectArray: function (index, selectIndex) {
+    let markList = this.getMarkList('englishHistoryList');
+    if (this.data.historySelectArray.length == 0) {
+      for (let x in markList) {
+        let markSelectMap = {};
+        if (typeof (markList[x].mark1) != "undefined") {
+          markSelectMap['select1'] = 0
+        }
+        if (typeof (markList[x].mark2) != "undefined") {
+          markSelectMap['select2'] = 0
+        }
+        this.data.historySelectArray.push(markSelectMap);
+      }
+    }
+
+    for (let x in this.data.historySelectArray) {
+      if (x == index) {
+        if (this.data.historySelectArray[x][selectIndex] == 0) {
+          this.data.historySelectArray[x][selectIndex] = 1
+        } else if (this.data.historySelectArray[x][selectIndex] == 1) {
+          this.data.historySelectArray[x][selectIndex] = 0
+        }
+      }
+    }
+  },
+
+  getHistorySelectArray: function () {
+    let markList = this.getMarkList('englishHistoryList');
+    for (let x in markList) {
+      if (this.data.historySelectArray[x]['select1'] == 1) {
+        markList[x]['select1'] = x;
+      }
+      if (this.data.historySelectArray[x]['select2'] == 1) {
+        markList[x]['select2'] = x;
+      }
+      if (this.data.historySelectArray[x]['select3'] == 1) {
+        markList[x]['select3'] = x;
+      }
+      if (this.data.historySelectArray[x]['select4'] == 1) {
+        markList[x]['select4'] = x;
+      }
+    }
+    return markList;
+  },
+
+  getHistoryButtonShow: function () {
+    let markString = wx.getStorageSync('englishHistoryList');
+    if (markString == "") {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+
+
   setMarkSelectArray: function (index, selectIndex) {
-    let markList = this.getMarkList();
+    let markList = this.getMarkList('englishMarkList');
     if (this.data.markSelectArray.length == 0) {
       for (let x in markList) {
         let markSelectMap = {};
@@ -39,7 +207,7 @@ Page({
   },
 
   getMarkSelectArray: function () {
-    let markList = this.getMarkList();
+    let markList = this.getMarkList('englishMarkList');
     for (let x in markList) {
       if (this.data.markSelectArray[x]['select1'] == 1) {
         markList[x]['select1'] = x;
@@ -83,7 +251,7 @@ Page({
     })
   },
 
-  notMarkListAddWord: function (index, wordIndex) {
+  notMarkListAddWord: function (index, wordIndex, key) {
     let wordList = this.getWordList(this.getResultArray()[0]);
 
     for (let x in wordList) {
@@ -101,16 +269,16 @@ Page({
 
         let markList = [];
         markList.push(markMap);
-        wx.setStorageSync('englishMarkList', JSON.stringify(markList));
+        wx.setStorageSync(key, JSON.stringify(markList));
         break;
       }
     }
   },
 
-  setMarkWordList: function (index, wordIndex) {
-    let markString = wx.getStorageSync('englishMarkList');
+  setMarkWordList: function (index, wordIndex, key) {
+    let markString = wx.getStorageSync(key);
     if (markString == "") {
-      this.notMarkListAddWord(index, wordIndex);
+      this.notMarkListAddWord(index, wordIndex, key);
     } else {
       let term = wx.getStorageSync('englishTerm');
       let lesson = wx.getStorageSync('englishLesson');
@@ -130,18 +298,21 @@ Page({
                 if (wordList[x][wordIndex] == markArray[z]) {
                   //如果找到，进行删除处理
                   markFlag = 1;
-                  markArray.splice(z, 1);
-                  if (markArray.length == 0) {
-                    //如果数组长度为0，删除termlession
-                    markList.splice(y, 1);
-                    if (markList.length == 0) {
-                      wx.removeStorageSync('englishMarkList');
+                  if ('englishMarkList' == key) {
+                    markArray.splice(z, 1);
+                    if (markArray.length == 0) {
+                      //如果数组长度为0，删除termlession
+                      markList.splice(y, 1);
+                      if (markList.length == 0) {
+                        wx.removeStorageSync(key);
+                      } else {
+                        wx.setStorageSync(key, JSON.stringify(markList));
+                      }
                     } else {
-                      wx.setStorageSync('englishMarkList', JSON.stringify(markList));
+                      wx.setStorageSync(key, JSON.stringify(markList));
                     }
-                  } else {
-                    wx.setStorageSync('englishMarkList', JSON.stringify(markList));
                   }
+
                   break;
                 }
               }
@@ -157,7 +328,7 @@ Page({
             for (let y in markList) {
               if (markList[y].termlession == termlession) {
                 markList[y]['mark'].push(wordList[x][wordIndex]);
-                wx.setStorageSync('englishMarkList', JSON.stringify(markList));
+                wx.setStorageSync(key, JSON.stringify(markList));
                 break;
               }
             }
@@ -177,7 +348,7 @@ Page({
             markMap['mark'] = markArray;
 
             markList.push(markMap);
-            wx.setStorageSync('englishMarkList', JSON.stringify(markList));
+            wx.setStorageSync(key, JSON.stringify(markList));
             break;
           }
         }
@@ -218,26 +389,30 @@ Page({
   word1Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let wordIndex = 'word1';
-    this.setMarkWordList(index, wordIndex);
+    this.setMarkWordList(index, wordIndex, 'englishMarkList');
+    this.setMarkWordList(index, wordIndex, 'englishHistoryList');
 
     this.setData({
-      wordList: this.getMarkWordList()
+      wordList: this.getMarkWordList(),
+      historyButtonShow: this.getHistoryButtonShow()
     });
   },
 
   word2Method: function (e) {
     let index = e.currentTarget.dataset.index;
     let wordIndex = 'word2';
-    this.setMarkWordList(index, wordIndex);
+    this.setMarkWordList(index, wordIndex, 'englishMarkList');
+    this.setMarkWordList(index, wordIndex, 'englishHistoryList');
 
     this.setData({
-      wordList: this.getMarkWordList()
+      wordList: this.getMarkWordList(),
+      historyButtonShow: this.getHistoryButtonShow()
     });
 
   },
 
-  getMarkList: function () {
-    let markString = wx.getStorageSync('englishMarkList');
+  getMarkList: function (key) {
+    let markString = wx.getStorageSync(key);
     let markSourceList = JSON.parse(markString);
     let markSourceArray = [];
 
@@ -291,7 +466,7 @@ Page({
         markShow: true,
         wordShow: false,
         classShow: false,
-        markList: this.getMarkList()
+        markList: this.getMarkList('englishMarkList')
       })
     }
   },
@@ -300,7 +475,7 @@ Page({
     if (this.data.markSelectArray.length == 0) {
       return;
     }
-    let markList = this.getMarkList();
+    let markList = this.getMarkList('englishMarkList');
     let deleteMarkList = [];
     for (let x in markList) {
       if (this.data.markSelectArray[x]['select1'] == 1) {
@@ -309,6 +484,28 @@ Page({
         }
       }
       if (this.data.markSelectArray[x]['select2'] == 1) {
+        if (typeof (markList[x].mark2) != "undefined") {
+          deleteMarkList.push(markList[x].mark2);
+        }
+      }
+    }
+
+    return deleteMarkList;
+  },
+
+  getDeleteHistoryList: function () {
+    if (this.data.historySelectArray.length == 0) {
+      return;
+    }
+    let markList = this.getMarkList('englishHistoryList');
+    let deleteMarkList = [];
+    for (let x in markList) {
+      if (this.data.historySelectArray[x]['select1'] == 1) {
+        if (typeof (markList[x].mark1) != "undefined") {
+          deleteMarkList.push(markList[x].mark1);
+        }
+      }
+      if (this.data.historySelectArray[x]['select2'] == 1) {
         if (typeof (markList[x].mark2) != "undefined") {
           deleteMarkList.push(markList[x].mark2);
         }
@@ -336,40 +533,51 @@ Page({
         mask: true
       })
     } else {
+      this.removeSub('englishMarkList');
 
-      let deleteMarkList = this.getDeleteMarkList();
-      let markString = wx.getStorageSync('englishMarkList');
-      let markList = JSON.parse(markString);
-      for (let x in deleteMarkList) {
-        for (let y in markList) {
-          let markArray = markList[y].mark;
-          for (let z in markArray) {
-            if (deleteMarkList[x] == markArray[z]) {
-              markArray.splice(z, 1);
-            }
-          }
-        }
-      }
-
-      let newMarkList = [];
-      for (let x in markList) {
-        if (markList[x].mark.length > 0) {
-          newMarkList.push(markList[x]);
-        }
-      }
-      if (newMarkList.length == 0) {
-        wx.removeStorageSync('englishMarkList');
-      } else {
-        wx.setStorageSync('englishMarkList', JSON.stringify(newMarkList));
-      }
       //清空标记选择数组
       this.data.markSelectArray = [];
+
       this.setData({
         markShow: false,
         wordShow: true,
         classShow: true,
         wordList: this.getMarkWordList()
       })
+    }
+  },
+
+  removeSub: function (key) {
+    let deleteMarkList;
+    if (key == 'englishMarkList') {
+      deleteMarkList = this.getDeleteMarkList();
+    } else {
+      deleteMarkList = this.getDeleteHistoryList();
+    }
+
+    let markString = wx.getStorageSync(key);
+    let markList = JSON.parse(markString);
+    for (let x in deleteMarkList) {
+      for (let y in markList) {
+        let markArray = markList[y].mark;
+        for (let z in markArray) {
+          if (deleteMarkList[x] == markArray[z]) {
+            markArray.splice(z, 1);
+          }
+        }
+      }
+    }
+
+    let newMarkList = [];
+    for (let x in markList) {
+      if (markList[x].mark.length > 0) {
+        newMarkList.push(markList[x]);
+      }
+    }
+    if (newMarkList.length == 0) {
+      wx.removeStorageSync(key);
+    } else {
+      wx.setStorageSync(key, JSON.stringify(newMarkList));
     }
   },
 
@@ -793,6 +1001,9 @@ Page({
       return;
     }
 
+    //初始化标记历史
+    this.initHistory();
+
     this.setData({
       previousShow: true,
       nextShow: true,
@@ -801,8 +1012,26 @@ Page({
       wordList: this.getMarkWordList(),
       term: this.getResultArray()[1],
       lesson: this.getResultArray()[2],
+      historyButtonShow: this.getHistoryButtonShow()
     })
   },
+
+  
+  initHistory:function(){
+
+    let historyFlag = wx.getStorageSync('englishHistoryFlag');
+    if(historyFlag == '1'){
+      return;
+    }
+
+    let markString = wx.getStorageSync('englishMarkList');
+    if (markString != "") {
+      wx.setStorageSync('englishHistoryList',markString);
+    }
+    
+    wx.setStorageSync('englishHistoryFlag','1');
+  },
+
 
 
   getWordList: function (wordArray) {

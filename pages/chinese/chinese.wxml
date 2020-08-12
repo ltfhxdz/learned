@@ -154,7 +154,7 @@
 	</view>
 </view>
 
-<view class="bottom"  wx:if="{{historyButtonShow}}">
+<view class="bottom" wx:if="{{historyButtonShow}}">
 	<view class='flex-row flex-item'>
 		<view class='item-left flex-row'>
 			<text decode="{{true}}">&nbsp;&nbsp;</text>
