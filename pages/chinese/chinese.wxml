@@ -1,127 +1,167 @@
 <view class="item5">
-  <view class="item1" wx:if="{{previousShow}}">
-    <text bindtap="previous">上一课</text>
-  </view>
-  <view class="item1">
-    <text bindtap="select">选择课文</text>
-  </view>
-  <view class="item1" wx:if="{{nextShow}}">
-    <text bindtap="next">下一课</text>
-  </view>
+	<view class="item1" wx:if="{{previousShow}}">
+		<text bindtap="previous">上一课</text>
+	</view>
+	<view class="item1">
+		<text bindtap="select">选择课文</text>
+	</view>
+	<view class="item1" wx:if="{{nextShow}}">
+		<text bindtap="next">下一课</text>
+	</view>
 </view>
 
 <view class="mask" style="{{termShow?'z-index: 1;opacity:0.8':''}}">
 </view>
 <view class='modalBg' wx:if="{{termShow}}">
-  <view class="modalDlg">
-    <view class='title'>
-      <text decode="{{true}}">&nbsp;&nbsp;</text>
-    </view>
+	<view class="modalDlg">
+		<view class='title'>
+			<text decode="{{true}}">&nbsp;&nbsp;</text>
+		</view>
 
-    <view wx:for="{{termList}}" wx:key="key">
-      <view class="item">
-        <text class="item2" catchtap="term1Method" data-index="{{index}}">{{item.term1}}</text>
-        <text class="item2" catchtap="term2Method" data-index="{{index}}">{{item.term2}}</text>
-      </view>
-      <view class="line"></view>
-    </view>
-    <view class="td">
-      <view class="item11">
-        <text catchtap="termCancel">取消</text>
-      </view>
-    </view>
+		<view wx:for="{{termList}}" wx:key="key">
+			<view class="item">
+				<text class="item2" catchtap="term1Method" data-index="{{index}}">{{item.term1}}</text>
+				<text class="item2" catchtap="term2Method" data-index="{{index}}">{{item.term2}}</text>
+			</view>
+			<view class="line"></view>
+		</view>
+		<view class="td">
+			<view class="item11">
+				<text catchtap="termCancel">取消</text>
+			</view>
+		</view>
 
-  </view>
+	</view>
 </view>
 
 
 <view class="mask" style="{{lessonShow?'z-index: 1;opacity:0.8':''}}">
 </view>
 <view class='modalBg' wx:if="{{lessonShow}}">
-  <view class="modalDlg">
-    <view class='title'>
-      <text decode="{{true}}">&nbsp;&nbsp;</text>
-    </view>
+	<view class="modalDlg">
+		<view class='title'>
+			<text decode="{{true}}">&nbsp;&nbsp;</text>
+		</view>
 
-    <view wx:for="{{lessonList}}" wx:key="key">
-      <view class="item">
-        <text class="item2" catchtap="lesson1Method" data-index="{{index}}">{{item.lesson1}}</text>
-        <text class="item2" catchtap="lesson2Method" data-index="{{index}}">{{item.lesson2}}</text>
-        <text class="item2" catchtap="lesson3Method" data-index="{{index}}">{{item.lesson3}}</text>
-      </view>
-      <view class="line"></view>
-    </view>
+		<view wx:for="{{lessonList}}" wx:key="key">
+			<view class="item">
+				<text class="item2" catchtap="lesson1Method" data-index="{{index}}">{{item.lesson1}}</text>
+				<text class="item2" catchtap="lesson2Method" data-index="{{index}}">{{item.lesson2}}</text>
+				<text class="item2" catchtap="lesson3Method" data-index="{{index}}">{{item.lesson3}}</text>
+			</view>
+			<view class="line"></view>
+		</view>
 
-    <view class="td">
-      <view class="item11">
-        <text catchtap="lessonCancel">取消</text>
-      </view>
-    </view>
-  </view>
+		<view class="td">
+			<view class="item11">
+				<text catchtap="lessonCancel">取消</text>
+			</view>
+		</view>
+	</view>
 </view>
 
 <view class="mask" style="{{markShow?'z-index: 1;opacity:0.8':''}}">
 </view>
 <view class='modalBg' wx:if="{{markShow}}">
-  <view class='item3'>
-    <view class='title'>
-      <text></text>
-      <text class="item10">标记表</text>
-      <text class="item12" bindtap="removeMark">删除标记</text>
-    </view>
+	<view class='item3'>
+		<view class='title'>
+			<text></text>
+			<text class="item10">标记表</text>
+			<text class="item12" bindtap="removeMark">删除标记</text>
+		</view>
 
-    <view scroll-y="true" wx:for="{{markList}}" wx:key="key">
-      <view class="item">
-        <text class="item2" style='{{item.select1==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark1Method" data-index="{{index}}">{{item.mark1}}</text>
-        <text class="item2" style='{{item.select2==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark2Method" data-index="{{index}}">{{item.mark2}}</text>
-        <text class="item2" style='{{item.select3==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark3Method" data-index="{{index}}">{{item.mark3}}</text>
-        <text class="item2" style='{{item.select4==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
-      </view>
-    </view>
+		<view scroll-y="true" wx:for="{{markList}}" wx:key="key">
+			<view class="item">
+				<text class="item2" style='{{item.select1==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark1Method" data-index="{{index}}">{{item.mark1}}</text>
+				<text class="item2" style='{{item.select2==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark2Method" data-index="{{index}}">{{item.mark2}}</text>
+				<text class="item2" style='{{item.select3==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark3Method" data-index="{{index}}">{{item.mark3}}</text>
+				<text class="item2" style='{{item.select4==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="mark4Method" data-index="{{index}}">{{item.mark4}}</text>
+			</view>
+		</view>
 
-    <view class="td">
-      <view class="item11">
-        <text catchtap="markCancel">取消</text>
-      </view>
-    </view>
-  </view>
+		<view class="td">
+			<view class="item11">
+				<text catchtap="markCancel">取消</text>
+			</view>
+		</view>
+	</view>
+</view>
+
+
+<view class="mask" style="{{historyShow?'z-index: 1;opacity:0.8':''}}">
+</view>
+<view class='modalBg' wx:if="{{historyShow}}">
+	<view class='item3'>
+		<view class='title'>
+			<text></text>
+			<text class="item10">历史表</text>
+			<text class="item12" bindtap="removeHistory">删除历史</text>
+		</view>
+
+		<view scroll-y="true" wx:for="{{historyList}}" wx:key="key">
+			<view class="item">
+				<text class="item2" style='{{item.select1==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="history1Method" data-index="{{index}}">{{item.mark1}}</text>
+				<text class="item2" style='{{item.select2==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="history2Method" data-index="{{index}}">{{item.mark2}}</text>
+				<text class="item2" style='{{item.select3==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="history3Method" data-index="{{index}}">{{item.mark3}}</text>
+				<text class="item2" style='{{item.select4==index?"background:lightgreen;":"background:AliceBlue"}}' catchtap="history4Method" data-index="{{index}}">{{item.mark4}}</text>
+			</view>
+		</view>
+
+		<view class="td">
+			<view class="item11">
+				<text catchtap="historyCancel">取消</text>
+			</view>
+		</view>
+	</view>
 </view>
 
 <view class="item6" wx:if="{{classShow}}">
-  <text decode="{{true}}">{{term}}</text>
-  <text decode="{{true}}" class="item8">{{lesson}}：{{name}}</text>
+	<text decode="{{true}}">{{term}}</text>
+	<text decode="{{true}}" class="item8">{{lesson}}：{{name}}</text>
 </view>
 
 <view class='item3' wx:if="{{wordShow}}">
-  <view class='title'>
-    <text class="item10">词语表</text>
-    <text class="item9" bindtap="mark">标记</text>
-  </view>
+	<view class='title'>
+		<text class="item10">词语表</text>
+		<text class="item9" bindtap="mark">标记</text>
+	</view>
 
-  <view wx:for="{{wordList}}" wx:key="key">
-    <view class="item">
-      <text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="word1Method" data-index="{{index}}">{{item.word1}}</text>
-      <text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="word2Method" data-index="{{index}}">{{item.word2}}</text>
-      <text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="word3Method" data-index="{{index}}">{{item.word3}}</text>
-      <text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="word4Method" data-index="{{index}}">{{item.word4}}</text>
-    </view>
-  </view>
+	<view wx:for="{{wordList}}" wx:key="key">
+		<view class="item">
+			<text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="word1Method" data-index="{{index}}">{{item.word1}}</text>
+			<text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="word2Method" data-index="{{index}}">{{item.word2}}</text>
+			<text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="word3Method" data-index="{{index}}">{{item.word3}}</text>
+			<text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="word4Method" data-index="{{index}}">{{item.word4}}</text>
+		</view>
+	</view>
 </view>
 
 <view class='item3' wx:if="{{writeShow}}">
-  <view class='title'>
-    <text class="item10">写字表</text>
-    <text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
-    <text class="item9"  wx:if="{{!wordShow}}" bindtap="mark">标记</text>
-  </view>
+	<view class='title'>
+		<text class="item10">写字表</text>
+		<text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
+		<text class="item9"  wx:if="{{!wordShow}}" bindtap="mark">标记</text>
+	</view>
 
-  <view wx:for="{{writeList}}" wx:key="key">
-    <view class="item">
-      <text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="write1Method" data-index="{{index}}">{{item.write1}}</text>
-      <text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="write2Method" data-index="{{index}}">{{item.write2}}</text>
-      <text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="write3Method" data-index="{{index}}">{{item.write3}}</text>
-      <text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="write4Method" data-index="{{index}}">{{item.write4}}</text>
-      <text class="item2" style='{{item.mark5==index?"background:red;":"background:AliceBlue"}}' catchtap="write5Method" data-index="{{index}}">{{item.write5}}</text>
-    </view>
-  </view>
+	<view wx:for="{{writeList}}" wx:key="key">
+		<view class="item">
+			<text class="item2" style='{{item.mark1==index?"background:red;":"background:AliceBlue"}}' catchtap="write1Method" data-index="{{index}}">{{item.write1}}</text>
+			<text class="item2" style='{{item.mark2==index?"background:red;":"background:AliceBlue"}}' catchtap="write2Method" data-index="{{index}}">{{item.write2}}</text>
+			<text class="item2" style='{{item.mark3==index?"background:red;":"background:AliceBlue"}}' catchtap="write3Method" data-index="{{index}}">{{item.write3}}</text>
+			<text class="item2" style='{{item.mark4==index?"background:red;":"background:AliceBlue"}}' catchtap="write4Method" data-index="{{index}}">{{item.write4}}</text>
+			<text class="item2" style='{{item.mark5==index?"background:red;":"background:AliceBlue"}}' catchtap="write5Method" data-index="{{index}}">{{item.write5}}</text>
+		</view>
+	</view>
+</view>
+
+<view class="bottom"  wx:if="{{historyButtonShow}}">
+	<view class='flex-row flex-item'>
+		<view class='item-left flex-row'>
+			<text decode="{{true}}">&nbsp;&nbsp;</text>
+		</view>
+
+		<view class='item-right flex-row'>
+			<text class="item13" bindtap="history">标记历史</text>
+		</view>
+	</view>
 </view>

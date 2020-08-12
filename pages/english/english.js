@@ -283,7 +283,7 @@ Page({
       wx.showToast({
         title: '点击单词，进行标记',
         icon: 'none',
-        duration: 3000,
+        duration: 2000,
         mask: true
       })
     } else {
@@ -332,7 +332,7 @@ Page({
       wx.showToast({
         title: '点击单词，进行删除',
         icon: 'none',
-        duration: 3000,
+        duration: 2000,
         mask: true
       })
     } else {
