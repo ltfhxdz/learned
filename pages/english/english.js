@@ -59,6 +59,7 @@ Page({
   },
 
   historyCancel: function () {
+    this.data.historySelectArray = [];
     this.setData({
       historyShow: false,
       wordShow: this.getWordShow(),
@@ -516,6 +517,7 @@ Page({
   },
 
   markCancel: function () {
+    this.data.markSelectArray = [];
     this.setData({
       markShow: false,
       wordShow: true,
