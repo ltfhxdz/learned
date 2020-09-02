@@ -1,4 +1,5 @@
 var oneWordJson = require('/../data/word.js');
+const manager = wx.getBackgroundAudioManager()
 
 Page({
 
@@ -11,7 +12,159 @@ Page({
     isrepeat: false,
     isMark: true,
     markSelectArray: [],
-    historySelectArray: []
+    historySelectArray: [],
+    musicList: [],
+    musicIndex: -1,
+    isDictation: true,
+    playStatus: true,
+  },
+  
+
+  dictation: function () {
+    if (this.data.isDictation) {
+      //播放    
+      this.setData({
+        isDictation: !this.data.isDictation,
+        playStatus: true
+      })
+
+      //听写小助手注册信息
+      // let cuid = "22051802";
+      // let client_id = "k0fmHrIjOFtPbVy8q96plyDa";
+      // let client_secret = "syCjvVKHXsA9RG9UqNOCwTmeDfMRiZ4A";
+
+      //百度demo注册信息
+      let cuid = "123456PYTHON";
+      let client_id = "4E1BG9lTnlSeIf1NQFlrSq6h";
+      let client_secret = "544ca4657ba8002e3dea3ac2f5fdd241";
+      let that = this;
+
+      wx.request({
+        url: "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + client_id + "&client_secret=" + client_secret,
+        data: {},
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          manager.title = "音频标题";
+          manager.epname = "专辑名称";
+          manager.singer = "歌手名";
+
+          let text = "马上开始听写";
+          let token = res.data.access_token;
+          manager.src = that.getUrl(token, text);
+          manager.play();
+          manager.onEnded(function () {
+            setTimeout(function () {
+              that.nextMusic(token);
+            }, 3000);
+          });
+        }
+      })
+    } else {
+      //暂停
+      this.setData({
+        isDictation: !this.data.isDictation,
+        playStatus: false
+      })
+    }
+
+  },
+
+  nextMusic: function (token) {
+    console.log("enter nextMusic");
+    if(this.data.playStatus){
+      this.data.musicIndex = this.data.musicIndex + 1;
+      let text = "";
+      let musicList = this.data.musicList;
+      for (let x in musicList) {
+        if (x == this.data.musicIndex) {
+          console.log(musicList[x]);
+          text = musicList[x];
+          manager.src = this.getUrl(token, text);
+          manager.play();
+          break;
+        }
+      }
+    }
+  },
+
+  initMusicList: function () {
+    let musicList = [];
+    let wordList = this.getWordList(this.getResultArray()[0]);
+    console.log(wordList);
+    for (let x in wordList) {
+      if (typeof (wordList[x].word1) != "undefined") {
+        musicList.push(wordList[x].word1);
+      }
+      if (typeof (wordList[x].word2) != "undefined") {
+        musicList.push(wordList[x].word2);
+      }
+      if (typeof (wordList[x].word3) != "undefined") {
+        musicList.push(wordList[x].word3);
+      }
+      if (typeof (wordList[x].word4) != "undefined") {
+        musicList.push(wordList[x].word4);
+      }
+    }
+
+    let writeList = this.getWriteList(this.getResultArray()[1]);
+    writeList = this.getNoRepeatWriteList(writeList);
+    console.log(writeList);
+
+    for (let x in writeList) {
+      if (typeof (writeList[x].write1) != "undefined") {
+        musicList.push(writeList[x].write1);
+      }
+      if (typeof (writeList[x].write2) != "undefined") {
+        musicList.push(writeList[x].write2);
+      }
+      if (typeof (writeList[x].write3) != "undefined") {
+        musicList.push(writeList[x].write3);
+      }
+      if (typeof (writeList[x].write4) != "undefined") {
+        musicList.push(writeList[x].write4);
+      }
+      if (typeof (writeList[x].write5) != "undefined") {
+        musicList.push(writeList[x].write5);
+      }
+    }
+
+    console.log(musicList);
+    this.data.musicList = musicList;
+  },
+
+  play: function (token, text) {
+
+  },
+
+  getUrl: function (tok, text) {
+    let tex = encodeURI(text);
+
+    let cuid = "123456PYTHON";
+    //发音人选择, 基础音库：0为度小美，1为度小宇，3为度逍遥，4为度丫丫，
+    //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，默认为度小美 
+    let pre = "0";
+
+    //语速，取值0-15，默认为5中语速
+    let spd = "3";
+
+    //音调，取值0-15，默认为5中语调
+    let pit = "5";
+
+    //音量，取值0-9，默认为5中音量
+    let vol = "5";
+
+    //下载的文件格式, 3：mp3(default) 4： pcm-16k 5： pcm-8k 6. wav
+    let aue = "3";
+
+    //语种 中文 固定参数
+    let lan = "zh";
+
+    //固定参数
+    let ctp = "1"
+    let srcurl = "https://tsn.baidu.com/text2audio?tok=" + tok + "&tex=" + tex + "&per=" + pre + "&spd=" + spd + "&pit=" + pit + "&vol=" + vol + "&aue=" + aue + "&cuid=" + cuid + "&lan=" + lan + "&ctp=" + ctp;
+    return srcurl;
   },
 
   history: function () {
@@ -992,7 +1145,7 @@ Page({
         writeShow: false,
         classShow: false
       })
-    }else{
+    } else {
       this.setData({
         termShow: false,
         wordShow: this.getWordShow(),
@@ -1232,8 +1385,6 @@ Page({
   },
 
   getWordShow: function () {
-
-    let wordList = this.getWordList(this.getResultArray()[0]);
     let wordShow = false;
     if (this.getResultArray()[0] != '') {
       wordShow = true;
@@ -1444,7 +1595,7 @@ Page({
         writeShow: false,
         classShow: false
       })
-    }else{
+    } else {
       this.setData({
         lessonShow: false,
         wordShow: this.getWordShow(),
@@ -1506,6 +1657,9 @@ Page({
     //初始化标记历史
     this.initHistory();
 
+    //初始化播放列表
+    this.initMusicList();
+
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);
 
@@ -1524,19 +1678,19 @@ Page({
     })
   },
 
-  initHistory:function(){
+  initHistory: function () {
 
     let historyFlag = wx.getStorageSync('historyFlag');
-    if(historyFlag == '1'){
+    if (historyFlag == '1') {
       return;
     }
 
     let markString = wx.getStorageSync('markList');
     if (markString != "") {
-      wx.setStorageSync('historyList',markString);
+      wx.setStorageSync('historyList', markString);
     }
-    
-    wx.setStorageSync('historyFlag','1');
+
+    wx.setStorageSync('historyFlag', '1');
   },
 
   getHistoryButtonShow: function () {
