@@ -13,130 +13,211 @@ Page({
     isMark: true,
     markSelectArray: [],
     historySelectArray: [],
-    musicList: [],
-    musicIndex: -1,
-    isDictation: true,
-    playStatus: true,
+    wordMusicList: [],
+    wordMusicIndex: -1,
+    isWordDictation: true,
+    wordPlayStatus: true,
+    writeMusicList: [],
+    writeMusicIndex: -1,
+    isWriteDictation: true,
+    writePlayStatus: true,
+    token: ''
   },
-  
 
-  dictation: function () {
-    if (this.data.isDictation) {
-      //播放    
-      this.setData({
-        isDictation: !this.data.isDictation,
-        playStatus: true
-      })
+  initToken: function () {
+    //听写小助手注册信息
+    // let cuid = "22051802";
+    // let client_id = "k0fmHrIjOFtPbVy8q96plyDa";
+    // let client_secret = "syCjvVKHXsA9RG9UqNOCwTmeDfMRiZ4A";
 
-      //听写小助手注册信息
-      // let cuid = "22051802";
-      // let client_id = "k0fmHrIjOFtPbVy8q96plyDa";
-      // let client_secret = "syCjvVKHXsA9RG9UqNOCwTmeDfMRiZ4A";
+    //百度demo注册信息
+    let cuid = "123456PYTHON";
+    let client_id = "4E1BG9lTnlSeIf1NQFlrSq6h";
+    let client_secret = "544ca4657ba8002e3dea3ac2f5fdd241";
+    let that = this;
+    wx.request({
+      url: "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + client_id + "&client_secret=" + client_secret,
+      data: {},
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        that.data.token = res.data.access_token;
+      }
+    })
+  },
 
-      //百度demo注册信息
-      let cuid = "123456PYTHON";
-      let client_id = "4E1BG9lTnlSeIf1NQFlrSq6h";
-      let client_secret = "544ca4657ba8002e3dea3ac2f5fdd241";
+  playWordMusic: function () {
+    if (this.data.wordPlayStatus) {
+      let wordMusicIndex = this.data.wordMusicIndex + 1;
+      if (wordMusicIndex == this.data.wordMusicList.length) {
+        this.setData({
+          wordMusicIndex: -1,
+          isWordDictation: true
+        });
+        return;
+      } else {
+        this.setData({
+          wordMusicIndex: wordMusicIndex
+        });
+      }
+
+      let text = this.data.wordMusicList[this.data.wordMusicIndex];
+      let token = this.data.token;
       let that = this;
 
-      wx.request({
-        url: "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + client_id + "&client_secret=" + client_secret,
-        data: {},
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        success(res) {
-          manager.title = "音频标题";
-          manager.epname = "专辑名称";
-          manager.singer = "歌手名";
+      manager.title = text;
+      manager.epname = "专辑名称";
+      manager.singer = "";
+      // 设置了 src 之后会自动播放
+      manager.src = this.getUrl(token, text);
 
-          let text = "马上开始听写";
-          let token = res.data.access_token;
-          manager.src = that.getUrl(token, text);
-          manager.play();
-          manager.onEnded(function () {
-            setTimeout(function () {
-              that.nextMusic(token);
-            }, 3000);
-          });
-        }
+
+      manager.onEnded(function () {
+        setTimeout(function () {
+          that.playWordMusic();
+        }, 3000);
+      });
+
+      manager.onError((res) => {
+        console.error(res);
+      });
+
+    }
+  },
+
+
+  playWriteMusic: function () {
+    if (this.data.writePlayStatus) {
+      let writeMusicIndex = this.data.writeMusicIndex + 1;
+      if (writeMusicIndex == this.data.writeMusicList.length) {
+        this.setData({
+          writeMusicIndex: -1,
+          isWriteDictation: true
+        });
+        return;
+      } else {
+        this.setData({
+          writeMusicIndex: writeMusicIndex
+        });
+      }
+
+      let text = this.data.writeMusicList[this.data.writeMusicIndex];
+      let token = this.data.token;
+      let that = this;
+
+      manager.title = text;
+      manager.epname = "专辑名称";
+      manager.singer = "";
+      // 设置了 src 之后会自动播放
+      manager.src = this.getUrl(token, text);
+
+
+      manager.onEnded(function () {
+        setTimeout(function () {
+          that.playWriteMusic();
+        }, 3000);
+      });
+
+      manager.onError((res) => {
+        console.error(res);
+      });
+
+    }
+  },
+
+  dictationWord: function () {
+    if (this.data.isWordDictation) {
+      //播放    
+      this.setData({
+        isWordDictation: !this.data.isWordDictation,
+        wordPlayStatus: true,
+        writePlayStatus: false,
+        isWriteDictation: true
       })
+
+      this.playWordMusic();
+
     } else {
+      manager.stop();
       //暂停
       this.setData({
-        isDictation: !this.data.isDictation,
-        playStatus: false
+        isWordDictation: !this.data.isWordDictation,
+        wordPlayStatus: false
       })
     }
-
   },
 
-  nextMusic: function (token) {
-    console.log("enter nextMusic");
-    if(this.data.playStatus){
-      this.data.musicIndex = this.data.musicIndex + 1;
-      let text = "";
-      let musicList = this.data.musicList;
-      for (let x in musicList) {
-        if (x == this.data.musicIndex) {
-          console.log(musicList[x]);
-          text = musicList[x];
-          manager.src = this.getUrl(token, text);
-          manager.play();
-          break;
-        }
-      }
+  dictationWrite: function () {
+    if (this.data.isWriteDictation) {
+      //播放    
+      this.setData({
+        isWriteDictation: !this.data.isWriteDictation,
+        writePlayStatus: true,
+        wordPlayStatus: false,
+        isWordDictation: true
+      })
+
+      this.playWriteMusic();
+
+    } else {
+      manager.stop();
+      //暂停
+      this.setData({
+        isWriteDictation: !this.data.isWriteDictation,
+        writePlayStatus: false
+      })
     }
   },
 
-  initMusicList: function () {
-    let musicList = [];
+  initWordMusicList: function () {
+    let wordMusicList = [];
     let wordList = this.getWordList(this.getResultArray()[0]);
-    console.log(wordList);
     for (let x in wordList) {
       if (typeof (wordList[x].word1) != "undefined") {
-        musicList.push(wordList[x].word1);
+        wordMusicList.push(wordList[x].word1);
       }
       if (typeof (wordList[x].word2) != "undefined") {
-        musicList.push(wordList[x].word2);
+        wordMusicList.push(wordList[x].word2);
       }
       if (typeof (wordList[x].word3) != "undefined") {
-        musicList.push(wordList[x].word3);
+        wordMusicList.push(wordList[x].word3);
       }
       if (typeof (wordList[x].word4) != "undefined") {
-        musicList.push(wordList[x].word4);
+        wordMusicList.push(wordList[x].word4);
       }
     }
 
+    this.data.wordMusicList = wordMusicList;
+  },
+
+
+  initWriteMusicList: function () {
+    let writeMusicList = [];
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);
-    console.log(writeList);
 
     for (let x in writeList) {
       if (typeof (writeList[x].write1) != "undefined") {
-        musicList.push(writeList[x].write1);
+        writeMusicList.push(writeList[x].write1);
       }
       if (typeof (writeList[x].write2) != "undefined") {
-        musicList.push(writeList[x].write2);
+        writeMusicList.push(writeList[x].write2);
       }
       if (typeof (writeList[x].write3) != "undefined") {
-        musicList.push(writeList[x].write3);
+        writeMusicList.push(writeList[x].write3);
       }
       if (typeof (writeList[x].write4) != "undefined") {
-        musicList.push(writeList[x].write4);
+        writeMusicList.push(writeList[x].write4);
       }
       if (typeof (writeList[x].write5) != "undefined") {
-        musicList.push(writeList[x].write5);
+        writeMusicList.push(writeList[x].write5);
       }
     }
-
-    console.log(musicList);
-    this.data.musicList = musicList;
+    this.data.writeMusicList = writeMusicList;
   },
 
-  play: function (token, text) {
 
-  },
 
   getUrl: function (tok, text) {
     let tex = encodeURI(text);
@@ -1132,7 +1213,13 @@ Page({
       wordShow: false,
       writeShow: false,
       classShow: false,
-      termList: termList
+      termList: termList,
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1225,10 +1312,14 @@ Page({
             wx.setStorageSync('lesson', lesson);
           }
         }
+        //初始化词语播放列表
+        this.initWordMusicList();
+
+        //初始化写字播放列表
+        this.initWriteMusicList();
 
         let writeList = this.getWriteList(this.getResultArray()[1]);
         writeList = this.getNoRepeatWriteList(writeList);
-
 
         this.setData({
           isrepeat: false,
@@ -1238,7 +1329,13 @@ Page({
           wordShow: this.getWordShow(),
           writeShow: this.getWriteShow(),
           wordList: this.getMarkWordList('markList'),
-          writeList: this.getMarkWriteList(writeList)
+          writeList: this.getMarkWriteList(writeList),
+          isWordDictation: true,
+          wordPlayStatus: false,
+          isWriteDictation: true,
+          writePlayStatus: false,
+          wordMusicIndex: -1,
+          writeMusicIndex: -1,
         })
       }
 
@@ -1257,6 +1354,11 @@ Page({
           }
         }
       }
+      //初始化词语播放列表
+      this.initWordMusicList();
+
+      //初始化写字播放列表
+      this.initWriteMusicList();
 
       let writeList = this.getWriteList(this.getResultArray()[1]);
       writeList = this.getNoRepeatWriteList(writeList);
@@ -1269,7 +1371,13 @@ Page({
         wordShow: this.getWordShow(),
         writeShow: this.getWriteShow(),
         wordList: this.getMarkWordList('markList'),
-        writeList: this.getMarkWriteList(writeList)
+        writeList: this.getMarkWriteList(writeList),
+        isWordDictation: true,
+        wordPlayStatus: false,
+        isWriteDictation: true,
+        writePlayStatus: false,
+        wordMusicIndex: -1,
+        writeMusicIndex: -1,
       })
     }
   },
@@ -1335,9 +1443,14 @@ Page({
           }
         }
 
+        //初始化词语播放列表
+        this.initWordMusicList();
+
+        //初始化写字播放列表
+        this.initWriteMusicList();
+
         let writeList = this.getWriteList(this.getResultArray()[1]);
         writeList = this.getNoRepeatWriteList(writeList);
-
 
         this.setData({
           isrepeat: false,
@@ -1347,7 +1460,13 @@ Page({
           wordShow: this.getWordShow(),
           writeShow: this.getWriteShow(),
           wordList: this.getMarkWordList('markList'),
-          writeList: this.getMarkWriteList(writeList)
+          writeList: this.getMarkWriteList(writeList),
+          isWordDictation: true,
+          wordPlayStatus: false,
+          isWriteDictation: true,
+          writePlayStatus: false,
+          wordMusicIndex: -1,
+          writeMusicIndex: -1,
         })
       }
 
@@ -1367,6 +1486,12 @@ Page({
         }
       }
 
+      //初始化词语播放列表
+      this.initWordMusicList();
+
+      //初始化写字播放列表
+      this.initWriteMusicList();
+
       let writeList = this.getWriteList(this.getResultArray()[1]);
       writeList = this.getNoRepeatWriteList(writeList);
 
@@ -1378,7 +1503,13 @@ Page({
         wordShow: this.getWordShow(),
         writeShow: this.getWriteShow(),
         wordList: this.getMarkWordList('markList'),
-        writeList: this.getMarkWriteList(writeList)
+        writeList: this.getMarkWriteList(writeList),
+        isWordDictation: true,
+        wordPlayStatus: false,
+        isWriteDictation: true,
+        writePlayStatus: false,
+        wordMusicIndex: -1,
+        writeMusicIndex: -1,
       })
     }
 
@@ -1445,7 +1576,13 @@ Page({
     this.setData({
       termShow: false,
       lessonShow: true,
-      lessonList: lessonList
+      lessonList: lessonList,
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1491,7 +1628,13 @@ Page({
     this.setData({
       termShow: false,
       lessonShow: true,
-      lessonList: lessonList
+      lessonList: lessonList,
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1519,8 +1662,16 @@ Page({
     if (typeof (this.data.lessonList[e.currentTarget.dataset.index]['lesson1']) == "undefined") {
       return;
     }
+
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson1']);
     wx.setStorageSync('term', this.data.term);
+
+    //初始化词语播放列表
+    this.initWordMusicList();
+
+    //初始化写字播放列表
+    this.initWriteMusicList();
+
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);
 
@@ -1535,7 +1686,13 @@ Page({
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson1'],
       wordList: this.getMarkWordList('markList'),
-      writeList: this.getMarkWriteList(writeList)
+      writeList: this.getMarkWriteList(writeList),
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1543,8 +1700,16 @@ Page({
     if (typeof (this.data.lessonList[e.currentTarget.dataset.index]['lesson2']) == "undefined") {
       return;
     }
+
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson2']);
     wx.setStorageSync('term', this.data.term);
+
+    //初始化词语播放列表
+    this.initWordMusicList();
+
+    //初始化写字播放列表
+    this.initWriteMusicList();
+
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);
     this.setData({
@@ -1558,7 +1723,13 @@ Page({
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson2'],
       wordList: this.getMarkWordList('markList'),
-      writeList: this.getMarkWriteList(writeList)
+      writeList: this.getMarkWriteList(writeList),
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1569,6 +1740,13 @@ Page({
 
     wx.setStorageSync('lesson', this.data.lessonList[e.currentTarget.dataset.index]['lesson3']);
     wx.setStorageSync('term', this.data.term);
+
+    //初始化词语播放列表
+    this.initWordMusicList();
+
+    //初始化写字播放列表
+    this.initWriteMusicList();
+
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);
     this.setData({
@@ -1582,7 +1760,13 @@ Page({
       name: this.getName(),
       lesson: this.data.lessonList[e.currentTarget.dataset.index]['lesson3'],
       wordList: this.getMarkWordList('markList'),
-      writeList: this.getMarkWriteList(writeList)
+      writeList: this.getMarkWriteList(writeList),
+      isWordDictation: true,
+      wordPlayStatus: false,
+      isWriteDictation: true,
+      writePlayStatus: false,
+      wordMusicIndex: -1,
+      writeMusicIndex: -1,
     })
   },
 
@@ -1654,11 +1838,17 @@ Page({
       return;
     }
 
+    //初始化token
+    this.initToken();
+
     //初始化标记历史
     this.initHistory();
 
-    //初始化播放列表
-    this.initMusicList();
+    //初始化词语播放列表
+    this.initWordMusicList();
+
+    //初始化写字播放列表
+    this.initWriteMusicList();
 
     let writeList = this.getWriteList(this.getResultArray()[1]);
     writeList = this.getNoRepeatWriteList(writeList);

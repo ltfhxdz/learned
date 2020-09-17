@@ -123,7 +123,7 @@
 <view class='item3' wx:if="{{wordShow}}">
 	<view class='title'>
 		<text class="item10">词语表</text>
-		<text class="item9" bindtap="dictation">{{isDictation ? "播放" : "暂停"}}</text>
+		<text class="item9" bindtap="dictationWord">{{isWordDictation ? "播放" : "暂停"}}</text>
 		<text class="item9" bindtap="mark">标记</text>
 	</view>
 
@@ -140,7 +140,7 @@
 <view class='item3' wx:if="{{writeShow}}">
 	<view class='title'>
 		<text class="item10">写字表</text>
-		<text class="item14" ></text>
+		<text class="item9" bindtap="dictationWrite">{{isWriteDictation ? "播放" : "暂停"}}</text>
 		<text class="item9" bindtap="repeat" wx:if="{{wordShow}}">{{isrepeat ? "去重" : "恢复"}}</text>
 		<text class="item9"  wx:if="{{!wordShow}}" bindtap="mark">标记</text>
 	</view>
