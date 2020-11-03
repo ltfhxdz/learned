@@ -423,7 +423,7 @@ var englishJson = [{
       },
       {
         "type": "第2课",
-        "word": ["by", "walk", "ms", "journey", "primary school", "underground", "station", "take", "after", "hour", "bus stop", "by bus", "far from", "on foot", "by bike", "by car", "get off"]
+        "word": ["by", "walk", "Ms", "journey", "primary school", "underground", "station", "take", "after", "hour", "bus stop", "by bus", "far from", "on foot", "by bike", "by car", "get off"]
       },
       {
         "type": "第3课",
