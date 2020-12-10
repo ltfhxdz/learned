@@ -223,18 +223,18 @@ Page({
     let tex = encodeURI(text);
 
     let cuid = "123456PYTHON";
-    //发音人选择, 基础音库：0为度小美，1为度小宇，3为度逍遥，4为度丫丫，
-    //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，默认为度小美 
-    let pre = "0";
+
+    //主播
+    let pre = this.getAnchor();
 
     //语速，取值0-15，默认为5中语速
-    let spd = "3";
+    let spd = 5;
 
     //音调，取值0-15，默认为5中语调
-    let pit = "5";
+    let pit = 5;
 
     //音量，取值0-9，默认为5中音量
-    let vol = "5";
+    let vol = 5;
 
     //下载的文件格式, 3：mp3(default) 4： pcm-16k 5： pcm-8k 6. wav
     let aue = "3";
@@ -246,6 +246,24 @@ Page({
     let ctp = "1"
     let srcurl = "https://tsn.baidu.com/text2audio?tok=" + tok + "&tex=" + tex + "&per=" + pre + "&spd=" + spd + "&pit=" + pit + "&vol=" + vol + "&aue=" + aue + "&cuid=" + cuid + "&lan=" + lan + "&ctp=" + ctp;
     return srcurl;
+  },
+
+     //发音人选择, 基础音库：0为度小美，1为度小宇，3为度逍遥，4为度丫丫，
+    //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，默认为度小美 
+  getAnchor: function(){
+    let pre = 0;
+
+    let anchor = wx.getStorageSync('anchor');
+    if(anchor == "0") {
+      pre = 0;
+    } else if(anchor == "1") {
+      pre = 1;
+    } if(anchor == "2") {
+      pre = 3;
+    } if(anchor == "3") {
+      pre = 4;
+    } 
+    return pre;
   },
 
   history: function () {

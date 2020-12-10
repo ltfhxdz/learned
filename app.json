@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/setup/setup",
     "pages/chinese/chinese",
     "pages/english/english",
     "pages/learned/learned"
@@ -32,6 +33,12 @@
         "iconPath": "pages/images/qiuying.png",
         "selectedIconPath": "pages/images/qiuying.png",
         "text": "查询"
+      },
+      {
+        "pagePath": "pages/setup/setup",
+        "iconPath": "pages/images/qiuying.png",
+        "selectedIconPath": "pages/images/qiuying.png",
+        "text": "设置"
       }
     ]
   },

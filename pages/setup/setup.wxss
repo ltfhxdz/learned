@@ -1,0 +1,115 @@
+
+.line{
+  margin: 0 auto;
+  height: 1px;
+  margin-left: 40px;
+  margin-right: 40px;
+  background-color: #D8D8D8;
+}
+
+.flex-wrp-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1%;
+  color: black;
+}
+ 
+.item {
+  padding: 25rpx;
+  position: relative;
+
+}
+ 
+.item-left {
+   flex: 1; /* 重要 */
+   align-items:center;
+}
+ 
+.item-right {
+  position: relative;
+  align-items:center;
+}
+
+.icon-left{
+  width: 25px;
+  height: 25px;
+}
+
+.icon-right{
+  width: 20px;
+  height: 20px;
+}
+
+
+.section__title{
+  margin-bottom: 20rpx;
+}
+
+.section{
+  margin: 50rpx 0;
+  font-size: 30rpx;
+}
+ 
+
+.desc-left {
+  margin-left: 20px;
+  line-height: 30px;
+}
+
+.desc-right {
+  margin-right: 20px;
+  line-height: 30px;
+}
+
+.x1{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.x2{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.x3{
+  font-size: 32px;
+}
+.x4{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top:20rpx;
+  margin-bottom:20rpx;
+  color: black;
+}
+
+.x5{
+  display: flex;
+  flex-direction: row;
+  margin-top:100rpx;
+  margin-left: 60rpx;
+  margin-bottom:20rpx;
+}
+
+.x6{
+  font-size: 24px;
+}
+
+.x7{
+  margin-top:150rpx;
+}
+
+
+.item2 {
+  width: 100%;
+  margin-top: 5%;
+}
+
+.item3 {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color:cyan;
+  text-align: center;
+}
+
