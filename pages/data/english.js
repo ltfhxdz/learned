@@ -451,7 +451,7 @@ var englishJson = [{
       },
       {
         "type": "第9课",
-        "word": ["post office", "post", "quite", "along", "turn", "left", "straight", "right", "between", "flower stop", "hospital", "toy shop", "road", "get to"]
+        "word": ["post office", "post", "quite", "along", "turn", "left", "straight", "right", "between", "flower shop", "hospital", "toy shop", "road", "get to"]
       },
       {
         "type": "第10课",
