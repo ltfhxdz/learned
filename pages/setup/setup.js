@@ -8,27 +8,8 @@ Page({
     //语速，取值0-15，默认为5中语速
     speedArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 
-    //音调，取值0-15，默认为5中语调
-    toneArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-
-    //音量，取值0-9，默认为5中音量
-    volumeArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-
   },
 
-  toneMethod: function (e) {
-    wx.setStorageSync('tone', e.detail.value);
-    this.setData({
-      tone: wx.getStorageSync('tone')
-    })
-  },
-
-  volumeMethod: function (e) {
-    wx.setStorageSync('volume', e.detail.value);
-    this.setData({
-      volume: wx.getStorageSync('volume')
-    })
-  },
 
   anchorMethod: function (e) {
     wx.setStorageSync('anchor', e.detail.value);
@@ -52,12 +33,8 @@ Page({
     this.setData({
       anchorIndex: wx.getStorageSync('anchor'),
       speedIndex: wx.getStorageSync('speed'),
-      toneIndex: wx.getStorageSync('tone'),
-      volumeIndex: wx.getStorageSync('volume'),
       anchor: this.data.anchorArray[wx.getStorageSync('anchor')],
       speed: wx.getStorageSync('speed'),
-      tone: wx.getStorageSync('tone'),
-      volume: wx.getStorageSync('volume'),
     })
   },
 

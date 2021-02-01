@@ -28,32 +28,5 @@
 	</picker>
 	<view class="line"></view>
 
-	<picker bindchange="toneMethod" value="{{toneIndex}}" range="{{toneArray}}">
-		<view class='flex-wrp-row item'>
-			<view class='item-left flex-wrp-row'>
-				<image src='../images/f3.png' class='icon-left' mode='aspectFit'></image>
-				<text decode="{{true}}">&nbsp;&nbsp;音调</text>
-			</view>
-			<view class='item-right flex-wrp-row'>
-				<text decode="{{true}}">{{tone}}&nbsp;&nbsp;</text>
-				<text decode="{{true}}" class="x6">&gt;</text>
-			</view>
-		</view>
-	</picker>
-	<view class="line"></view>
-
-	<picker bindchange="volumeMethod" value="{{volumeIndex}}" range="{{volumeArray}}">
-		<view class='flex-wrp-row item'>
-			<view class='item-left flex-wrp-row'>
-				<image src='../images/f4.png' class='icon-left' mode='aspectFit'></image>
-				<text decode="{{true}}">&nbsp;&nbsp;音量</text>
-			</view>
-			<view class='item-right flex-wrp-row'>
-				<text decode="{{true}}">{{volume}}&nbsp;&nbsp;</text>
-				<text decode="{{true}}" class="x6">&gt;</text>
-			</view>
-		</view>
-	</picker>
-	<view class="line"></view>
 
 </view>
