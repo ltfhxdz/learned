@@ -1,8 +1,8 @@
 {
   "pages": [
-    "pages/setup/setup",
     "pages/chinese/chinese",
     "pages/english/english",
+    "pages/setup/setup",
     "pages/learned/learned"
   ],
   "window": {

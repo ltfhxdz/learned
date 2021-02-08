@@ -71,12 +71,10 @@ Page({
       manager.singer = "";
       // 设置了 src 之后会自动播放
       manager.src = this.getUrl(token, text);
-
-
       manager.onEnded(function () {
         setTimeout(function () {
           that.playWordMusic();
-        }, 3000);
+        }, that.getSpeed());
       });
 
       manager.onError((res) => {
@@ -86,6 +84,10 @@ Page({
     }
   },
 
+  getSpeed: function () {
+    let speed = wx.getStorageSync('speed');
+    return speed * 1000;
+  },
 
   playWriteMusic: function () {
     if (this.data.writePlayStatus) {
@@ -116,7 +118,7 @@ Page({
       manager.onEnded(function () {
         setTimeout(function () {
           that.playWriteMusic();
-        }, 3000);
+        }, that.getSpeed());
       });
 
       manager.onError((res) => {
@@ -228,7 +230,7 @@ Page({
     let pre = this.getAnchor();
 
     //语速，取值0-15，默认为5中语速
-    let spd = 5;
+    let spd = 1;
 
     //音调，取值0-15，默认为5中语调
     let pit = 5;
@@ -248,21 +250,23 @@ Page({
     return srcurl;
   },
 
-     //发音人选择, 基础音库：0为度小美，1为度小宇，3为度逍遥，4为度丫丫，
-    //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，默认为度小美 
-  getAnchor: function(){
+  //发音人选择, 基础音库：0为度小美，1为度小宇，3为度逍遥，4为度丫丫，
+  //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，默认为度小美 
+  getAnchor: function () {
     let pre = 0;
 
     let anchor = wx.getStorageSync('anchor');
-    if(anchor == "0") {
+    if (anchor == "0") {
       pre = 0;
-    } else if(anchor == "1") {
+    } else if (anchor == "1") {
       pre = 1;
-    } if(anchor == "2") {
+    }
+    if (anchor == "2") {
       pre = 3;
-    } if(anchor == "3") {
+    }
+    if (anchor == "3") {
       pre = 4;
-    } 
+    }
     return pre;
   },
 

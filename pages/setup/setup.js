@@ -5,8 +5,8 @@ Page({
     //精品音库：5为度小娇，103为度米朵，106为度博文，110为度小童，111为度小萌，
     anchorArray: ['小美', '小宇', '逍遥', '丫丫'],
 
-    //语速，取值0-15，默认为5中语速
-    speedArray: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+    //语速，取值1-15，默认为5中语速
+    speedArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
 
   },
 
@@ -19,7 +19,7 @@ Page({
   },
 
   speedMethod: function (e) {
-    wx.setStorageSync('speed', e.detail.value);
+    wx.setStorageSync('speed', parseInt(e.detail.value)  + 1);
     this.setData({
       speed: wx.getStorageSync('speed')
     })
