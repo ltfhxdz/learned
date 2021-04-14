@@ -992,7 +992,7 @@ Page({
         writeShow: false,
         classShow: false
       })
-    }else{
+    } else {
       this.setData({
         termShow: false,
         wordShow: this.getWordShow(),
@@ -1444,7 +1444,7 @@ Page({
         writeShow: false,
         classShow: false
       })
-    }else{
+    } else {
       this.setData({
         lessonShow: false,
         wordShow: this.getWordShow(),
@@ -1524,19 +1524,19 @@ Page({
     })
   },
 
-  initHistory:function(){
+  initHistory: function () {
 
     let historyFlag = wx.getStorageSync('historyFlag');
-    if(historyFlag == '1'){
+    if (historyFlag == '1') {
       return;
     }
 
     let markString = wx.getStorageSync('markList');
     if (markString != "") {
-      wx.setStorageSync('historyList',markString);
+      wx.setStorageSync('historyList', markString);
     }
-    
-    wx.setStorageSync('historyFlag','1');
+
+    wx.setStorageSync('historyFlag', '1');
   },
 
   getHistoryButtonShow: function () {
@@ -1686,7 +1686,7 @@ Page({
    * 允许用户点击右上角分享给朋友
    */
   onShareAppMessage: function () {
-
+    title: '听写小助手：字词是基础，助力孩子进步。'
   },
   /**
    * 允许用户右上角分享到朋友圈
