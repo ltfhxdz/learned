@@ -167,7 +167,7 @@ var englishJson = [{
       },
       {
         "type": "第3课",
-        "word": ["train", "ship", "car", "bus", "listen", "beside", "outside", "can't","cannot"]
+        "word": ["train", "ship", "car", "bus", "listen", "beside", "outside", "can't", "cannot"]
       },
       {
         "type": "第4课",
@@ -463,7 +463,7 @@ var englishJson = [{
       },
       {
         "type": "第12课",
-        "word": ["fire", "burn", "hurt", "must", "careful", "safety", "smoke", "match", "heat", "hate", "burn down","(be) careful with", "not ... at all"]
+        "word": ["fire", "burn", "hurt", "must", "careful", "safety", "smoke", "match", "heat", "hate", "burn down", "(be) careful with", "not ... at all"]
       }
     ]
   },
@@ -475,11 +475,11 @@ var englishJson = [{
       },
       {
         "type": "第2课",
-        "word": ["why", "because", "study", "dining room", "dining", "wild goose", "wild geese",  "change", "place", "twice", "every", "north", "south", "enough", "then", "all day"]
+        "word": ["why", "because", "study", "dining room", "dining", "wild goose", "wild geese", "change", "place", "twice", "every", "north", "south", "enough", "then", "all day"]
       },
       {
         "type": "第3课",
-        "word": ["future", "stand", "machine", "will", "exercise", "early", "easily", "hard", "more", "in the future", "in front of", "take a photo", "wear glasses", "do exercise", "(be) weak in",  "not ... any more"]
+        "word": ["future", "stand", "machine", "will", "exercise", "early", "easily", "hard", "more", "in the future", "in front of", "take a photo", "wear glasses", "do exercise", "(be) weak in", "not ... any more"]
       },
       {
         "type": "第4课",
@@ -487,7 +487,7 @@ var englishJson = [{
       },
       {
         "type": "第5课",
-        "word": ["weekend", "stay", "film", "boat", "plan", "tomorrow", "build", "next", "swing", "cry", "see a film", "row a boat"]
+        "word": ["weekend", "stay", "film", "boat", "plan", "tomorrow", "build", "next", "swing", "cry", "until", "see a film", "row a boat"]
       },
       {
         "type": "第6课",
